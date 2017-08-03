@@ -1,0 +1,172 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+# Home page
+GET     /                           controllers.Application.index()
+
+# Collections
+GET     /cities                     controllers.Collections.getCities()
+GET     /counties                   controllers.Collections.getCounties()
+GET     /directions                 controllers.Collections.getDirections()
+GET     /locations                  controllers.Collections.getLocations()
+GET     /measurements               controllers.Collections.getMeasurements()
+GET     /nearTo                     controllers.Collections.getNearTo()
+GET     /properties                 controllers.Collections.getProperties()
+GET     /zoneTypes                  controllers.Collections.getZoneTypes()
+GET     /reportTypes                controllers.Collections.getReportTypes()
+GET     /harmfulEvents              controllers.Collections.getHarmfulEvents()
+GET     /harmfulEventCategories     controllers.Collections.getHarmfulEventCategories()
+GET     /relativeToTrafficways      controllers.Collections.getRelativeToTrafficways()
+GET     /mannerOfCollisions         controllers.Collections.getMannerOfCollisions()
+GET     /weatherConditions          controllers.Collections.getWeatherConditions()
+GET     /lightingConditions         controllers.Collections.getLightingConditions()
+GET     /roadSurfaces               controllers.Collections.getRoadSurfaces()
+GET     /environmentConditions      controllers.Collections.getEnvironmentConditions()
+GET     /roadCircumstances          controllers.Collections.getRoadCircumstances()
+GET     /withinInterchanges         controllers.Collections.getWithinInterchanges()
+GET     /junctions                  controllers.Collections.getJunctions()
+GET     /intersectionTypes          controllers.Collections.getIntersectionTypes()
+GET     /schoolBusRelated           controllers.Collections.getSchoolBusRelated()
+GET     /workzoneRelated            controllers.Collections.getWorkzoneRelated()
+GET     /workzoneLocations          controllers.Collections.getWorkzoneLocation()
+GET     /workzoneTypes              controllers.Collections.getWorkzoneType()
+GET     /workersPresent             controllers.Collections.getWorkersPresent()
+GET     /lawEnforcementPresent      controllers.Collections.getLawEnforcementPresent()
+GET     /lawEnforcementPresent      controllers.Collections.getLawEnforcementPresent()
+GET     /personTypeCategories       controllers.Collections.getPersonTypeCategories()
+GET     /personTypes                controllers.Collections.getPersonTypes()
+GET     /driverLicenseTypes         controllers.Collections.getDriverLicenseTypes()
+GET     /genders                    controllers.Collections.getGenders()
+GET     /organDonor                 controllers.Collections.getOrganDonor()
+GET     /vehicles                   controllers.Collections.getVehicles()
+GET     /vehicleTypes               controllers.Collections.getVehicleTypes()
+GET     /vehicleJurisdictions       controllers.Collections.getVehicleJurisdictions()
+# Vehicle Tab
+GET     /bodyTypes                  controllers.Collections.getBodyTypes()
+GET     /specialFunctions           controllers.Collections.getSpecialFunctions()
+GET     /emergencyUses              controllers.Collections.getEmergencyUses()
+GET     /postedSpeeds               controllers.Collections.getPostedSpeeds()
+GET     /directionsOfTravel         controllers.Collections.getDirectionsOfTravel()
+GET     /trafficwayDescriptions     controllers.Collections.getTrafficwayDescriptions()
+GET     /totalLanesCategories       controllers.Collections.getTotalLanesCategories()
+GET     /totalLanes                 controllers.Collections.getTotalLanes()
+GET     /roadwayHorizontalAlignments controllers.Collections.getRoadwayHorizontalAlignments()
+GET     /roadwayGrades              controllers.Collections.getRoadwayGrades()
+GET     /TCDWorking                 controllers.Collections.getTCDWorking()
+GET     /TCDTypes                   controllers.Collections.getTCDTypes()
+GET     /actions                    controllers.Collections.getActions()
+GET     /initialContactPoints       controllers.Collections.getInitialContactPoints()
+GET     /damagedAreas               controllers.Collections.getDamagedAreas()
+GET     /extentOfDamages            controllers.Collections.getExtentOfDamages()
+#GET     /harmfulEvents
+#GET     /harmfulEventCategories
+GET     /hitAndRun                  controllers.Collections.getHitAndRun()
+GET     /towedBy                    controllers.Collections.getTowedBy()
+GET     /vehicleCircumstances       controllers.Collections.getVehicleCircumstances()
+GET     /motorCarrierTypes          controllers.Collections.getMotorCarrierTypes()
+GET     /vehicleMovements           controllers.Collections.getVehicleMovements()
+GET     /driverIsAuthorized         controllers.Collections.getDriverIsAuthorized()
+GET     /inspectionUpToDate         controllers.Collections.getInspectionUpToDate()
+GET     /specialPermits             controllers.Collections.getSpecialPermits()
+GET     /GVWRGCWR                   controllers.Collections.getGVWRGCWR()
+GET     /configurations             controllers.Collections.getConfigurations()
+GET     /cargoBodyTypes             controllers.Collections.getCargoBodyTypes()
+GET     /hazMatInvolved             controllers.Collections.getHazMatInvolved()
+GET     /placardDisplayed           controllers.Collections.getPlacardDisplayed()
+GET     /hazMatReleased             controllers.Collections.getHazMatReleased()
+# Person Tab
+GET     /rows                       controllers.Collections.getRows()
+GET     /seats                      controllers.Collections.getSeats()
+GET     /seatingOthers              controllers.Collections.getSeatingOthers()
+GET     /restraintSystems           controllers.Collections.getRestraintSystems()
+GET     /helmetUses                 controllers.Collections.getHelmetUses()
+GET     /airbagDeployed             controllers.Collections.getAirbagDeployed()
+GET     /ejections                  controllers.Collections.getEjections()
+GET     /extrications               controllers.Collections.getExtrications()
+GET     /speedingSuspected          controllers.Collections.getSpeedingSuspected()
+GET     /contribActionsCircumstances controllers.Collections.getContribActionsCircumstances()
+GET     /distractedBy               controllers.Collections.getDistractedBy()
+GET     /conditions                 controllers.Collections.getConditions()
+GET     /actionsPriorToCrash        controllers.Collections.getActionsPriorToCrash()
+GET     /toFromSchool               controllers.Collections.getToFromSchool()
+GET     /actionsAtTimeOfCrash       controllers.Collections.getActionsAtTimeOfCrash()
+GET     /nonMotoristLocations       controllers.Collections.getNonMotoristLocations()
+
+GET     /safetyEquipments           controllers.Collections.getSafetyEquipments()
+GET     /substancesSuspected        controllers.Collections.getSubstancesSuspected()
+GET     /testStatuses               controllers.Collections.getTestStatuses()
+GET     /alcoholTestTypes           controllers.Collections.getAlcoholTestTypes()
+GET     /alcoholTestResults         controllers.Collections.getAlcoholTestResults()
+GET     /drugTestTypes              controllers.Collections.getDrugTestTypes()
+GET     /drugTestResults            controllers.Collections.getDrugTestResults()
+
+GET     /transportedBy              controllers.Collections.getTransportedBy()
+
+# Crash Reports
+POST    /reports                    controllers.Report.addReport()
+PUT     /reports/:reportID          controllers.Report.updateReport(reportID: Integer)
+
+# Crash Report Conditions
+POST    /reportConditions                    controllers.ReportCondition.addReportCondition()
+PUT     /reportConditions/:reportConditionID controllers.ReportCondition.updateReportCondition(reportConditionID: Integer)
+
+# Authentication
+POST    /login                      controllers.Authentication.doLogin()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index
+# An example controller showing how to use dependency injection
+GET     /count                      controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET     /message                    controllers.AsyncController.message
+
+POST    /person                         controllers.HomeController.storePerson()
+
+POST    /ActionTimeSelection            controllers.ActionCollisionTimeSelection.insertActionCollisionTimeSelection()
+POST    /ActionS                        controllers.ActionCollisionTimeS.insertActionCollisionTimeS()
+POST    /ContribActionsCircumstanceS    controllers.ContribActionsCircumstanceSelection.insertContribActionsCircumstanceSelection()
+POST    /DriverCirncunstanceSelection   controllers.DriverCirncunstanceSelection.insertDriverCirncunstanceSelection()
+POST    /ConditionCollisionTimeSelection   controllers.ConditionCollisionTimeSelection.insertConditionCollisionTimeSelection()
+
+POST    /safetyEquipmentSelection       controllers.SafetyEquipmentSelection.insertSafetyEquipmentSelection()
+
+
+#POST    /CommercialVehicleHazardousMaterial     controllers.CommercialVehicleHazardousMaterial.insertCommercialVehicleHazardousMaterial()
+
+POST    /TCDTypeSelection               controllers.TCDTypeSelection.insertTCDTypeSelection()
+POST    /AffectAreaSelection            controllers.AffectAreaSelection.insertAffectAreaSelection()
+
+POST    /CrashConditions                controllers.CrashConditions.insertCrashConditions()
+#POST    /LawInfraction                  controllers.LawInfraction.insertLawInfraction()
+POST    /NewVehicle                     controllers.NewVehicle.insertNewVehicle()
+GET     /ListVehicleByPlateNumber/:para        controllers.NewVehicle.listVehicleByPlateNumber(para: Integer)
+GET     /ListPersonByLicencieNumber/:para      controllers.NewPerson.listPersonByLicencieNumber(para:Integer)
+GET     /listVehicleOfPerson/:para      controllers.listVehicleOfPerson.listVehicleOfPerson(para:Integer)
+GET     /ListReport/:para               controllers.ListReport.listReportByAccidentDate(para:String)
+
+
+POST    /NewPerson                      controllers.NewPerson.insertNewPerson()
+POST    /Narrativa                      controllers.Narrativa.insertNarrativa()
+POST    /InformationVehicleOccupant     controllers.InformationVehicleOccupant.insertInformationVehicleOccupant()
+#POST    /InformationRoadVehiclePassing  controllers.InformationRoadVehiclePassing.insertInformationRoadVehiclePassing()
+POST    /InformationPCV                 controllers.InformationPCV.insertInformationPCV()
+#POST    /InformationEventVehicle        controllers.InformationEventVehicle.insertInformationEventVehicle()
+#POST    /InformationAllPerson           controllers.InformationAllPerson.insertInformationAllPerson()
+
+POST    /CrashBasicInformation          controllers.CrashBasicInformation.insertCrashBasicInformation()
+POST    /VehicleInformation             controllers.VehicleInformation.insertVehicleInformation()
+POST    /AccidentCondition             controllers.AccidentCondition.insertAccidentCondition()
+POST    /AccidentNarrativa             controllers.AccidentNarrativa.insertAccidentNarrativa()
+POST    /PersonAccident                controllers.PersonAccident.insertPersonAccident()
+POST    /VehicleAccident                controllers.VehicleAccident.insertVehicleAccident()
+POST    /PersonExtendInformation        controllers.PersonExtendInformation.insertPersonExtendInformation()
+POST    /VehicleExtend        controllers.VehicleExtend.insertVehicleExtend()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
