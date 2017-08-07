@@ -152,8 +152,6 @@ public class NewVehicleModel extends Model {
         update.setParameter("ExpirationDate", newVehicleModel.expirationDate);
         update.setParameter("idPersonaFK", newVehicleModel.idPersonaFK);
 
-
-        // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
         try {
             result = update.execute();
         }catch (Exception e){

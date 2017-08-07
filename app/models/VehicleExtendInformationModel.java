@@ -133,4 +133,81 @@ public class VehicleExtendInformationModel extends Model {
         }
         return result;
     }
+
+
+    public int updateVehicleExtendInformationModel(VehicleExtendInformationModel vehicleExtendInformationModel) {
+        int result;
+        String sql = "UPDATE VehicleExtendInformation SET ((VehicleType, Occupants, VehicleMotor, DirectionTripCB, FunctionSpecialMVT," +
+                "MotorEmergencyVU, MPH, MPHDescription,ManeuverVehicleMotor, DescriptionRoad, Alignment, Slope, LaneCantidad," +
+                " LaneCategoria, LaneTipoCarril, TypeControlTraffic, InOperationLost, PrimeraCategoriaEvent, SegundaCategoriaEvent, " +
+                " TerceraCategoriaEvent,CuartaCategoria, PrimerEvent, SegundoEvent, TecerEvent, CuartoEvent, BusUse, LefthPlace," +
+                "TowedDamage, PrimerDefectoMecánico, SegundoDefectoMecánico, InitialContactPoint, AffectedArea, ExtendDamage, CommercialVehicleUse," +
+                " VehicleMoving, AuthorizedDriver, InspectionUpdate, SpecialPermit, GrossWeight, TotalAxis, VehicleConfiguration," +
+                " HeavyVehicleType, HazardousMaterial,DiamondIdNumber, ThereHazardousMaterial, VehicleFK) " +
+                " = (:VehicleType, :Occupants, :VehicleMotor, :DirectionTripCB, :FunctionSpecialMVT, :MotorEmergencyVU," +
+                " :MPH, :MPHDescription, :ManeuverVehicleMotor, :DescriptionRoad, :Alignment, :Slope, :LaneCantidad, :LaneCategoria, :LaneTipoCarril," +
+                " :TypeControlTraffic, :InOperationLost, :PrimeraCategoriaEvent, :SegundaCategoriaEvent, :TerceraCategoriaEvent," +
+                ":CuartaCategoria, :PrimerEvent, :SegundoEvent, :TecerEvent, :CuartoEvent, :BusUse, :LefthPlace, :TowedDamage, :PrimerDefectoMecánico," +
+                " :SegundoDefectoMecánico, :InitialContactPoint, :AffectedArea, :ExtendDamage, :CommercialVehicleUse, :VehicleMoving, :AuthorizedDriver, " +
+                "  :InspectionUpdate, :SpecialPermit, :GrossWeight, :TotalAxis, :VehicleConfiguration," +
+                " :HeavyVehicleType, :HazardousMaterial, :DiamondIdNumber, :ThereHazardousMaterial, :VehicleFK)" +
+                "WHERE idVehicleExtendInformation = :idVehicleExtendInformation ";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
+
+        update.setParameter("VehicleType",  vehicleExtendInformationModel.vehicleType);
+        update.setParameter("Occupants", vehicleExtendInformationModel.occupants);
+        update.setParameter("VehicleMotor", vehicleExtendInformationModel.vehicleMotor);
+        update.setParameter("DirectionTripCB", vehicleExtendInformationModel.directionTripCB);
+        update.setParameter("FunctionSpecialMVT", vehicleExtendInformationModel.functionSpecialMVT);
+        update.setParameter("MotorEmergencyVU", vehicleExtendInformationModel.motorEmergencyVU);
+        update.setParameter("MPH", vehicleExtendInformationModel.mPH);
+        update.setParameter("MPHDescription", vehicleExtendInformationModel.mPHDescription);
+        update.setParameter("ManeuverVehicleMotor", vehicleExtendInformationModel.maneuverVehicleMotor);
+        update.setParameter("DescriptionRoad", vehicleExtendInformationModel.descriptionRoad);
+        update.setParameter("Alignment", vehicleExtendInformationModel.alignment);
+        update.setParameter("Slope", vehicleExtendInformationModel.slope);
+        update.setParameter("LaneCantidad", vehicleExtendInformationModel.laneCantidad);
+        update.setParameter("LaneCategoria", vehicleExtendInformationModel.laneCategoria);
+        update.setParameter("LaneTipoCarril", vehicleExtendInformationModel.laneTipoCarril);
+        update.setParameter("TypeControlTraffic", vehicleExtendInformationModel.typeControlTraffic);
+        update.setParameter("InOperationLost", vehicleExtendInformationModel.inOperationLost);
+        update.setParameter("PrimeraCategoriaEvent", vehicleExtendInformationModel.primeraCategoriaEvent);
+        update.setParameter("SegundaCategoriaEvent", vehicleExtendInformationModel.segundaCategoriaEvent);
+        update.setParameter("TerceraCategoriaEvent", vehicleExtendInformationModel.terceraCategoriaEvent);
+        update.setParameter("CuartaCategoria", vehicleExtendInformationModel.cuartaCategoria);
+        update.setParameter("PrimerEvent", vehicleExtendInformationModel.primerEvent);
+        update.setParameter("SegundoEvent", vehicleExtendInformationModel.segundoEvent);
+        update.setParameter("TecerEvent", vehicleExtendInformationModel.tecerEvent);
+        update.setParameter("CuartoEvent", vehicleExtendInformationModel.cuartoEvent);
+        update.setParameter("BusUse", vehicleExtendInformationModel.busUse);
+        update.setParameter("LefthPlace", vehicleExtendInformationModel.lefthPlace);
+        update.setParameter("TowedDamage", vehicleExtendInformationModel.towedDamage);
+        update.setParameter("PrimerDefectoMecánico", vehicleExtendInformationModel.primerDefectoMecánico);
+        update.setParameter("SegundoDefectoMecánico", vehicleExtendInformationModel.segundoDefectoMecánico);
+        update.setParameter("InitialContactPoint", vehicleExtendInformationModel.initialContactPoint);
+        update.setParameter("AffectedArea", vehicleExtendInformationModel.affectedArea);
+        update.setParameter("ExtendDamage", vehicleExtendInformationModel.extendDamage);
+        update.setParameter("CommercialVehicleUse", vehicleExtendInformationModel.commercialVehicleUse);
+        update.setParameter("VehicleMoving", vehicleExtendInformationModel.vehicleMoving);
+        update.setParameter("AuthorizedDriver", vehicleExtendInformationModel.authorizedDriver);
+        update.setParameter("InspectionUpdate", vehicleExtendInformationModel.inspectionUpdate);
+        update.setParameter("SpecialPermit", vehicleExtendInformationModel.specialPermit);
+        update.setParameter("GrossWeight", vehicleExtendInformationModel.grossWeight);
+        update.setParameter("TotalAxis", vehicleExtendInformationModel.totalAxis);
+        update.setParameter("VehicleConfiguration", vehicleExtendInformationModel.vehicleConfiguration);
+        update.setParameter("HeavyVehicleType", vehicleExtendInformationModel.heavyVehicleType);
+        update.setParameter("HazardousMaterial", vehicleExtendInformationModel.hazardousMaterial);
+        update.setParameter("DiamondIdNumber", vehicleExtendInformationModel.diamondIdNumber);
+        update.setParameter("ThereHazardousMaterial", vehicleExtendInformationModel.thereHazardousMaterial);
+        update.setParameter("VehicleFK", vehicleExtendInformationModel.vehicleFK);
+
+
+        try {
+            result = update.execute();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
 }

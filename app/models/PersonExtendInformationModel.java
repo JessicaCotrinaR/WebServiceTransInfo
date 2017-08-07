@@ -108,4 +108,63 @@ public class PersonExtendInformationModel extends Model {
         }
         return result;
     }
+
+    public int updatePersonExtendInformationModel(PersonExtendInformationModel personExtendInformationModel) {
+        int result;
+        String sql = "UPDATE PersonExtendInformation SET (PersonaFK, CategoryPerson, TypePerson, Row, Seat, OtherLocation," +
+                "RestraintSystem,AirbagsActivation, Expulsion, SpeedRelated, Extraction,  DriverCirncunstanceBC, DistractedDriverBy, DistractedBy, ConditionCollisionTime, " +
+                "SafetyEquipmentUsed, SuspectAlcoholUse, TestStatusAl, TestTypeAl, TestResultAl, TestResultTP, SuscpectControlledSubstances," +
+                " TestStatusSub, TestTypeSub, TestResultSub, ActionsBeforeCollision, InWayToSchool, ActionsAtCollisionTime, " +
+                " LocationWhenCollision, TransportedByME, TransportedTo, TransportedBy, MedicalEmergenciesNumber, AmbulanceCSPNumber ) " +
+                " = ((:PersonaFK, :CategoryPerson, :TypePerson, :Row, :Seat, :OtherLocation," +
+                ":RestraintSystem, :AirbagsActivation, :Expulsion, :SpeedRelated, :Extraction,  :DriverCirncunstanceBC, :DistractedDriverBy, :DistractedBy, :ConditionCollisionTime, " +
+                ":SafetyEquipmentUsed, :SuspectAlcoholUse, :TestStatusAl, :TestTypeAl, :TestResultAl, :TestResultTP, :SuscpectControlledSubstances," +
+                " :TestStatusSub, :TestTypeSub, :TestResultSub, :ActionsBeforeCollision, :InWayToSchool, :ActionsAtCollisionTime, " +
+                " :LocationWhenCollision, :TransportedByME, :TransportedTo, :TransportedBy, :MedicalEmergenciesNumber, :AmbulanceCSPNumber )" +
+                "WHERE idPersonExtendInformation = :idPersonExtendInformation ";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
+
+        update.setParameter("PersonaFK",  personExtendInformationModel.personaFK);
+        update.setParameter("CategoryPerson", personExtendInformationModel.categoryPerson);
+        update.setParameter("TypePerson", personExtendInformationModel.typePerson);
+        update.setParameter("Row", personExtendInformationModel.row);
+        update.setParameter("Seat", personExtendInformationModel.seat);
+        update.setParameter("OtherLocation", personExtendInformationModel.otherLocation);
+        update.setParameter("RestraintSystem", personExtendInformationModel.restraintSystem);
+        update.setParameter("AirbagsActivation", personExtendInformationModel.airbagsActivation);
+        update.setParameter("Expulsion", personExtendInformationModel.expulsion);
+        update.setParameter("SpeedRelated", personExtendInformationModel.speedRelated);
+        update.setParameter("Extraction", personExtendInformationModel.extraction);
+        update.setParameter("DriverCirncunstanceBC", personExtendInformationModel.driverCirncunstanceBC);
+        update.setParameter("DistractedDriverBy", personExtendInformationModel.drivercirncunstance);
+        update.setParameter("DistractedBy", personExtendInformationModel.distractedBy);
+        update.setParameter("ConditionCollisionTime", personExtendInformationModel.conditionCollisionTime);
+        update.setParameter("SafetyEquipmentUsed", personExtendInformationModel.safetyEquipmentUsed);
+        update.setParameter("SuspectAlcoholUse", personExtendInformationModel.suspectAlcoholUse);
+        update.setParameter("TestStatusAl", personExtendInformationModel.testStatusAl);
+        update.setParameter("TestTypeAl", personExtendInformationModel.testTypeAl);
+        update.setParameter("TestResultAl", personExtendInformationModel.testResultAl);
+        update.setParameter("TestResultTP", personExtendInformationModel.testResultTP);
+        update.setParameter("SuscpectControlledSubstances", personExtendInformationModel.suscpectControlledSubstances);
+        update.setParameter("TestStatusSub", personExtendInformationModel.testStatusSub);
+        update.setParameter("TestTypeSub", personExtendInformationModel.testTypeSub);
+        update.setParameter("TestResultSub", personExtendInformationModel.testResultSub);
+        update.setParameter("ActionsBeforeCollision", personExtendInformationModel.actionsBeforeCollision);
+        update.setParameter("InWayToSchool", personExtendInformationModel.inWayToSchool);
+        update.setParameter("ActionsAtCollisionTime", personExtendInformationModel.actionsAtCollisionTime);
+        update.setParameter("LocationWhenCollision", personExtendInformationModel.locationWhenCollision);
+        update.setParameter("TransportedByME", personExtendInformationModel.transportedByME);
+        update.setParameter("TransportedTo", personExtendInformationModel.transportedTo);
+        update.setParameter("TransportedBy", personExtendInformationModel.transportedBy);
+        update.setParameter("MedicalEmergenciesNumber", personExtendInformationModel.medicalEmergenciesNumber);
+        update.setParameter("AmbulanceCSPNumber", personExtendInformationModel.ambulanceCSPNumber);
+
+        try {
+            result = update.execute();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
 }
