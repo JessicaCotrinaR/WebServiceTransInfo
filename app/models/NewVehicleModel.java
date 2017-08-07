@@ -132,6 +132,36 @@ public class NewVehicleModel extends Model {
 
     }
 
+    public int updateVehicleModel(NewVehicleModel newVehicleModel) {
+        int result;
+        String sql = "UPDATE Narrative SET (PlateNumber, VehicleJurisdiction, State, Vin, Year, Make, modelos, RegistrationNumber, InsuranceCompany, PurchaseDate, ExpirationDate, idPersonaFK)" +
+                " = (:PlateNumber, :VehicleJurisdiction, :State, :Vin, :Year, :Make, :modelos, :RegistrationNumber, :InsuranceCompany, :PurchaseDate, :ExpirationDate, :idPersonaFK)" +
+                "WHERE idNewVehicle = :idNewVehicle ";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
+
+        update.setParameter("PlateNumber",  newVehicleModel.plateNumber);
+        update.setParameter("VehicleJurisdiction", newVehicleModel.vehicleJurisdiction);
+        update.setParameter("State", newVehicleModel.state);
+        update.setParameter("Vin", newVehicleModel.vin);
+        update.setParameter("Year", newVehicleModel.year);
+        update.setParameter("Make", newVehicleModel.make);
+        update.setParameter("modelos", newVehicleModel.modelos);
+        update.setParameter("RegistrationNumber", newVehicleModel.registrationNumber);
+        update.setParameter("InsuranceCompany", newVehicleModel.insuranceCompany);
+        update.setParameter("PurchaseDate", newVehicleModel.purchaseDate);
+        update.setParameter("ExpirationDate", newVehicleModel.expirationDate);
+        update.setParameter("idPersonaFK", newVehicleModel.idPersonaFK);
+
+
+        // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
+        try {
+            result = update.execute();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
 
 
 }

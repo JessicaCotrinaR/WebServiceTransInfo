@@ -141,7 +141,7 @@ public class NewPersonModel extends Model {
         return person;
 
     }
-    public int updatePerson(NewPersonModel newPersonModel) {
+    public int updatePersonModel(NewPersonModel newPersonModel) {
         int result;
         String sql = "UPDATE Narrative SET (Name, Gender, LicenseType, LicenceNumber, OrganDonor, ExpirationDate, Neighborhood, StreetName, City, StateCountry, ZipCode, PhoneNumber)" +
                 " = (:Name, :Gender, :LicenseType, :LicenceNumber, :OrganDonor, :ExpirationDate, :Neighborhood, :StreetName, :City, :StateCountry, :ZipCode, :PhoneNumber)" +
