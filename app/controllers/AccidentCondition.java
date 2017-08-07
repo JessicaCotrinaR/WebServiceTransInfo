@@ -39,5 +39,8 @@ public class AccidentCondition extends Controller {
             return badRequest("Error interno de operación");
         }
     }
+
+
+
 }
 

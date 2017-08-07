@@ -42,4 +42,27 @@ public class CrashBasicInformation extends Controller {
             return badRequest("Error interno de operación");
         }
     }
+
+    public Result CrashBasicInformationUpdate(){
+
+        CrashBasicInformationModel crashBasicInformation =  formFactory.form(CrashBasicInformationModel.class).bindFromRequest().get();
+        crashBasicInformation.idCrashBasicInformation = Integer.valueOf(session().get("idCrashBasicInformation"));
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        int result = crashBasicInformation.updateCrashBasicInformation(crashBasicInformation);
+
+        if(result == 1){
+            msg.put("message","updated sucessfully");
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
+
+
+
 }

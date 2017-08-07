@@ -57,6 +57,28 @@ public class NarrativaModel extends Model {
         return result;
     }
 
+    public int updateNarrativa(NarrativaModel narrativaModel) {
+        int result;
+        String sql = "UPDATE Narrative SET (NotifiedTimePolice, TimeOfArrivalPolice, NotifiedTimeEmergencie, TimeOfArrivalEmergencie, Details)" +
+                " = (:NotifiedTimePolice, :TimeOfArrivalPolice, :NotifiedTimeEmergencie, :TimeOfArrivalEmergencie, :Details)" +
+                "WHERE idNarrative = :idNarrative";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
 
+        update.setParameter("NotifiedTimePolice",  narrativaModel.notifiedTimePolice);
+        update.setParameter("TimeOfArrivalPolice", narrativaModel.timeOfArrivalPolice);
+        update.setParameter("NotifiedTimeEmergencie", narrativaModel.notifiedTimeEmergencie);
+        update.setParameter("TimeOfArrivalEmergencie", narrativaModel.timeOfArrivalEmergencie);
+        update.setParameter("Details", narrativaModel.details);
+
+
+        // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
+        try {
+            result = update.execute();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
 
 }

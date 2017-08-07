@@ -95,28 +95,45 @@ public class CrashConditionsModel extends Model {
         return result;
     }
 
+    public int updateCrashConditions(CrashConditionsModel crashConditionsModel) {
+        int result;
+        String sql = "UPDATE CrashConditions SET (CollisionTypeDescriptionES, EventDescriptionES, EventLocationDescriptionES, MannerofColisionDescriptionES, WeatherConditionUno, WeatherConditionDos, VisibilityCondition, PavementCondition, Environmental, RoadDescription, WithinInterchange, SpecifLocation, InserctionType, SchoolBusRelated, NearConstruction, CrashLocation, WorkerZoneType, WorkerPresent, PolicePresent)" +
+                " = (:CollisionTypeDescriptionES, :EventDescriptionES, :EventLocationDescriptionES, :MannerofColisionDescriptionES, :WeatherConditionUno, :WeatherConditionDos, :VisibilityCondition, :PavementCondition, :Environmental, :RoadDescription, :WithinInterchange, :SpecifLocation, :InserctionType, :SchoolBusRelated, :NearConstruction, :CrashLocation, :WorkerZoneType, :WorkerPresent, :PolicePresent)" +
+                "WHERE idCrashConditions = :idCrashConditions";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
 
+        update.setParameter("CollisionTypeDescriptionES",  crashConditionsModel.collisionTypeDescriptionES);
+        update.setParameter("EventDescriptionES", crashConditionsModel.eventDescriptionES);
+        update.setParameter("EventLocationDescriptionES", crashConditionsModel.eventLocationDescriptionES);
+        update.setParameter("MannerofColisionDescriptionES", crashConditionsModel.mannerofColisionDescriptionES);
+        update.setParameter("WeatherConditionUno", crashConditionsModel.weatherConditionUno);
+        update.setParameter("WeatherConditionDos", crashConditionsModel.weatherConditionDos);
+        update.setParameter("VisibilityCondition", crashConditionsModel.visibilityCondition);
+        update.setParameter("PavementCondition", crashConditionsModel.pavementCondition);
+        update.setParameter("Environmental", crashConditionsModel.environmental);
+        update.setParameter("RoadDescription", crashConditionsModel.roadDescription);
+        update.setParameter("WithinInterchange", crashConditionsModel.withinInterchange);
+        update.setParameter("SpecifLocation", crashConditionsModel.specifLocation);
+        update.setParameter("InserctionType", crashConditionsModel.inserctionType);
+        update.setParameter("SchoolBusRelated", crashConditionsModel.schoolBusRelated);
+        update.setParameter("NearConstruction", crashConditionsModel.nearConstruction);
+        update.setParameter("CrashLocation", crashConditionsModel.crashLocation);
+        update.setParameter("WorkerZoneType", crashConditionsModel.workerZoneType);
+        update.setParameter("WorkerPresent", crashConditionsModel.workerPresent);
+        update.setParameter("PolicePresent", crashConditionsModel.policePresent);
+        update.setParameter("PropertyDescriptionES", crashConditionsModel.idCrashBasicInformation);
+//        update.setParameter("LocationDescriptionES", crashConditionsModel.locationDescriptionES);
 
-//    private int insertAccidentCondition(int accident_id, int condition_id) {
-//        System.out.println(accident_id);
-//        System.out.println(condition_id);
-//        int result;
-//        String sql = "INSERT INTO AccidentCondition (idAccidentFK, idCrashConditionFK)" +
-//                "VALUES (:idAccidentFK, :idCrashConditionFK) ";
-//        SqlUpdate insert = Ebean.createSqlUpdate(sql);
-//        insert.setParameter("idAccidentFK", accident_id);
-//        insert.setParameter("idCrashConditionFK", condition_id);
-//        System.out.println("Update: " + insert.getSql());
-//        try {
-//            result = insert.execute();
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//            result = 0;
-//        }
-//        return result;
-//
-//
-//    }
+        //update.setParameter("idCrashBasicInformation", crashConditionsModel.idCrashBasicInformation);
+        try {
+            result = update.execute();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
+
 
 
 }

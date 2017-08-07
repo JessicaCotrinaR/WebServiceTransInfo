@@ -141,7 +141,36 @@ public class NewPersonModel extends Model {
         return person;
 
     }
+    public int updatePerson(NewPersonModel newPersonModel) {
+        int result;
+        String sql = "UPDATE Narrative SET (Name, Gender, LicenseType, LicenceNumber, OrganDonor, ExpirationDate, Neighborhood, StreetName, City, StateCountry, ZipCode, PhoneNumber)" +
+                " = (:Name, :Gender, :LicenseType, :LicenceNumber, :OrganDonor, :ExpirationDate, :Neighborhood, :StreetName, :City, :StateCountry, :ZipCode, :PhoneNumber)" +
+                "WHERE idNewPerson = :idNewPerson ";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
 
+        update.setParameter("Name",  newPersonModel.name);
+        update.setParameter("Gender", newPersonModel.gender);
+        update.setParameter("LicenseType", newPersonModel.licenseType);
+        update.setParameter("LicenceNumber", newPersonModel.licenceNumber);
+        update.setParameter("OrganDonor", newPersonModel.organDonor);
+        update.setParameter("ExpirationDate", newPersonModel.expirationDate);
+        update.setParameter("Neighborhood", newPersonModel.neighborhood);
+        update.setParameter("StreetName", newPersonModel.streetName);
+        update.setParameter("City", newPersonModel.city);
+        update.setParameter("StateCountry", newPersonModel.stateCountry);
+        update.setParameter("ZipCode", newPersonModel.zipCode);
+        update.setParameter("PhoneNumber", newPersonModel.phoneNumber);
+
+
+        // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
+        try {
+            result = update.execute();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
 
 
 }

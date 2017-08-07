@@ -33,6 +33,7 @@ public class CrashBasicInformationModel extends Model {
     public String locationDescriptionES;
     public String zoneTypeDescriptionES;
     public int officerfk;
+    public int idCrashBasicInformation;
 
     public CrashBasicInformationModel() {
     }
@@ -93,4 +94,48 @@ public class CrashBasicInformationModel extends Model {
         }
         return result;
     }
+
+    public int updateCrashBasicInformation(CrashBasicInformationModel crashBasicInformationModel) {
+        int result;
+        String sql = "UPDATE Accident SET (CrashType, CaseNumber, CrashDate, Hour, UnitVehiculos, UnitAutomovilistas, UnitPedestrians, UnitInjured, UnitFatalaties, Longitude, Latitude, Address, CityDescriptionES, CountryDescriptionES, NearToDescriptionEs, Name, Distance, MeasurementDescriptionES, DirectionDescriptionES, PropertyDescriptionES, LocationDescriptionES, ZoneTypeDescriptionES, Officerfk)" +
+                " = (:CrashType, :CaseNumber, :CrashDate, :Hour, :UnitVehiculos, :UnitAutomovilistas, :UnitPedestrians, :UnitInjured, :UnitFatalaties, :Longitude, :Latitude, :Address, :CityDescriptionES, :CountryDescriptionES, :NearToDescriptionEs, :Name, :Distance, :MeasurementDescriptionES, :DirectionDescriptionES, :PropertyDescriptionES, :LocationDescriptionES, :ZoneTypeDescriptionES, :Officerfk)" +
+                "WHERE idCrashBasicInformation = :idCrashBasicInformation";
+        SqlUpdate update = Ebean.createSqlUpdate(sql);
+
+        update.setParameter("CrashType",  crashBasicInformationModel.crashType);
+        update.setParameter("CaseNumber", crashBasicInformationModel.caseNumber);
+        update.setParameter("CrashDate", crashBasicInformationModel.crashDate);
+        update.setParameter("Hour", crashBasicInformationModel.hour);
+        update.setParameter("UnitVehiculos", crashBasicInformationModel.unitVehiculos);
+        update.setParameter("UnitAutomovilistas", crashBasicInformationModel.unitAutomovilistas);
+        update.setParameter("UnitPedestrians", crashBasicInformationModel.unitPedestrians);
+        update.setParameter("UnitInjured", crashBasicInformationModel.unitInjured);
+        update.setParameter("UnitFatalaties", crashBasicInformationModel.unitFatalaties);
+        update.setParameter("Longitude", crashBasicInformationModel.longitude);
+        update.setParameter("Latitude", crashBasicInformationModel.latitude);
+        update.setParameter("Address", crashBasicInformationModel.address);
+        update.setParameter("CityDescriptionES", crashBasicInformationModel.cityDescriptionES);
+        update.setParameter("CountryDescriptionES", crashBasicInformationModel.countryDescriptionES);
+        update.setParameter("NearToDescriptionEs", crashBasicInformationModel.nearToDescriptionEs);
+        update.setParameter("Name", crashBasicInformationModel.name);
+        update.setParameter("Distance", crashBasicInformationModel.distance);
+        update.setParameter("MeasurementDescriptionES", crashBasicInformationModel.measurementDescriptionES);
+        update.setParameter("DirectionDescriptionES", crashBasicInformationModel.directionDescriptionES);
+        update.setParameter("PropertyDescriptionES", crashBasicInformationModel.propertyDescriptionES);
+        update.setParameter("LocationDescriptionES", crashBasicInformationModel.locationDescriptionES);
+        update.setParameter("ZoneTypeDescriptionES", crashBasicInformationModel.zoneTypeDescriptionES);
+        update.setParameter("Officerfk", crashBasicInformationModel.officerfk);
+       // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
+        try {
+            result = update.execute();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            result = 0;
+        }
+        return result;
+    }
+
+
+
+
 }

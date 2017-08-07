@@ -137,13 +137,11 @@ POST    /ConditionCollisionTimeSelection   controllers.ConditionCollisionTimeSel
 POST    /safetyEquipmentSelection       controllers.SafetyEquipmentSelection.insertSafetyEquipmentSelection()
 
 
-#POST    /CommercialVehicleHazardousMaterial     controllers.CommercialVehicleHazardousMaterial.insertCommercialVehicleHazardousMaterial()
-
 POST    /TCDTypeSelection               controllers.TCDTypeSelection.insertTCDTypeSelection()
 POST    /AffectAreaSelection            controllers.AffectAreaSelection.insertAffectAreaSelection()
 
 POST    /CrashConditions                controllers.CrashConditions.insertCrashConditions()
-#POST    /LawInfraction                  controllers.LawInfraction.insertLawInfraction()
+
 POST    /NewVehicle                     controllers.NewVehicle.insertNewVehicle()
 GET     /ListVehicleByPlateNumber/:para        controllers.NewVehicle.listVehicleByPlateNumber(para: Integer)
 GET     /ListPersonByLicencieNumber/:para      controllers.NewPerson.listPersonByLicencieNumber(para:Integer)
@@ -154,10 +152,9 @@ GET     /ListReport/:para               controllers.ListReport.listReportByAccid
 POST    /NewPerson                      controllers.NewPerson.insertNewPerson()
 POST    /Narrativa                      controllers.Narrativa.insertNarrativa()
 POST    /InformationVehicleOccupant     controllers.InformationVehicleOccupant.insertInformationVehicleOccupant()
-#POST    /InformationRoadVehiclePassing  controllers.InformationRoadVehiclePassing.insertInformationRoadVehiclePassing()
+
 POST    /InformationPCV                 controllers.InformationPCV.insertInformationPCV()
-#POST    /InformationEventVehicle        controllers.InformationEventVehicle.insertInformationEventVehicle()
-#POST    /InformationAllPerson           controllers.InformationAllPerson.insertInformationAllPerson()
+
 
 POST    /CrashBasicInformation          controllers.CrashBasicInformation.insertCrashBasicInformation()
 POST    /VehicleInformation             controllers.VehicleInformation.insertVehicleInformation()
@@ -170,3 +167,6 @@ POST    /VehicleExtend        controllers.VehicleExtend.insertVehicleExtend()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+#updates
+POST /CrashBasicInformationEdit             controllers.CrashBasicInformation.CrashBasicInformationUpdate()

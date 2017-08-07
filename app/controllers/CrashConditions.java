@@ -27,7 +27,7 @@ public class CrashConditions extends Controller {
             long operation = crashConditionsModel.addCrashConditions(crashConditionsModel);
             if(operation >0){
                 result.put("message", "Agregado con éxito");
-                result.put("NarrativaId", operation);
+                result.put("CrashConditionId", operation);
                 wrapper.set("success", result);
                 return ok(wrapper);
             }else{
