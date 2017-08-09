@@ -24,7 +24,7 @@ public class Narrativa extends Controller {
             ObjectNode result = Json.newObject();
             ObjectNode wrapper = Json.newObject();
             long operation = narrativaModel.addNarrativa(narrativaModel);
-            System.out.println("Valur de operation: " + operation);
+            System.out.println("Valor de operation: " + operation);
             if(operation > 0){
                 result.put("message", "Agregado con éxito");
                 result.put("CrashId", operation);
@@ -39,6 +39,27 @@ public class Narrativa extends Controller {
             System.out.println("Error: "+e.getMessage());
             e.printStackTrace();
             return badRequest("Error interno de operación");
+        }
+    }
+
+    public Result narrativaUpdate(){
+
+        NarrativaModel editNarrativa = new NarrativaModel();
+        editNarrativa = formFactory.form(NarrativaModel.class).bindFromRequest().get();
+        editNarrativa.idnarrative = Integer.valueOf(session().get("idNarrative"));
+
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        int result = editNarrativa.updateNarrativa(editNarrativa);
+        System.out.println("ya"+result);
+        if(result == 1){
+            msg.put("message","updated sucessfully");
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
         }
     }
 }

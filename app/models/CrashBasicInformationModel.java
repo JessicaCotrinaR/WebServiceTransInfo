@@ -33,7 +33,7 @@ public class CrashBasicInformationModel extends Model {
     public String locationDescriptionES;
     public String zoneTypeDescriptionES;
     public int officerfk;
-    public int idCrashBasicInformation;
+    public int idcrashBasicInformation;
 
     public CrashBasicInformationModel() {
     }
@@ -71,6 +71,7 @@ public class CrashBasicInformationModel extends Model {
         Transaction tx = Ebean.beginTransaction();
         boolean success= true;
 
+        System.out.println("Update: " + insert.getSql());
         try {
             result = insert.execute();
             String sqlgetId = "SELECT @@IDENTITY as theId";
@@ -97,9 +98,10 @@ public class CrashBasicInformationModel extends Model {
 
     public int updateCrashBasicInformation(CrashBasicInformationModel crashBasicInformationModel) {
         int result;
-        String sql = "UPDATE Accident SET (CrashType, CaseNumber, CrashDate, Hour, UnitVehiculos, UnitAutomovilistas, UnitPedestrians, UnitInjured, UnitFatalaties, Longitude, Latitude, Address, CityDescriptionES, CountryDescriptionES, NearToDescriptionEs, Name, Distance, MeasurementDescriptionES, DirectionDescriptionES, PropertyDescriptionES, LocationDescriptionES, ZoneTypeDescriptionES, Officerfk)" +
-                " = (:CrashType, :CaseNumber, :CrashDate, :Hour, :UnitVehiculos, :UnitAutomovilistas, :UnitPedestrians, :UnitInjured, :UnitFatalaties, :Longitude, :Latitude, :Address, :CityDescriptionES, :CountryDescriptionES, :NearToDescriptionEs, :Name, :Distance, :MeasurementDescriptionES, :DirectionDescriptionES, :PropertyDescriptionES, :LocationDescriptionES, :ZoneTypeDescriptionES, :Officerfk)" +
-                "WHERE idCrashBasicInformation = :idCrashBasicInformation";
+        String sql = "UPDATE Accident SET CrashType, CaseNumber, CrashDate, Hour, UnitVehiculos, UnitAutomovilistas, UnitPedestrians, UnitInjured, UnitFatalaties, Longitude, Latitude, Address, CityDescriptionES, CountryDescriptionES, NearToDescriptionEs, Name, Distance, MeasurementDescriptionES, DirectionDescriptionES, PropertyDescriptionES, LocationDescriptionES, ZoneTypeDescriptionES, Officerfk " +
+                " = :CrashType, :CaseNumber, :CrashDate, :Hour, :UnitVehiculos, :UnitAutomovilistas, :UnitPedestrians, :UnitInjured, :UnitFatalaties, :Longitude, :Latitude, :Address, :CityDescriptionES, :CountryDescriptionES, :NearToDescriptionEs, :Name, :Distance, :MeasurementDescriptionES, :DirectionDescriptionES, :PropertyDescriptionES, :LocationDescriptionES, :ZoneTypeDescriptionES, :Officerfk " +
+                " WHERE idCrashBasicInformation = :idCrashBasicInformation";
+        System.out.println(sql);
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
         update.setParameter("CrashType",  crashBasicInformationModel.crashType);
@@ -125,7 +127,10 @@ public class CrashBasicInformationModel extends Model {
         update.setParameter("LocationDescriptionES", crashBasicInformationModel.locationDescriptionES);
         update.setParameter("ZoneTypeDescriptionES", crashBasicInformationModel.zoneTypeDescriptionES);
         update.setParameter("Officerfk", crashBasicInformationModel.officerfk);
-       // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
+        update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idcrashBasicInformation);
+
+
+        System.out.println("Update: " + update.getSql());
         try {
             result = update.execute();
         }catch (Exception e){

@@ -43,10 +43,13 @@ public class CrashBasicInformation extends Controller {
         }
     }
 
-    public Result CrashBasicInformationUpdate(){
+    public Result crashBasicInformationUpdate(){
 
         CrashBasicInformationModel crashBasicInformation =  formFactory.form(CrashBasicInformationModel.class).bindFromRequest().get();
-        crashBasicInformation.idCrashBasicInformation = Integer.valueOf(session().get("idCrashBasicInformation"));
+        //System.out.println("goHHHHOLLLALDJDDNNFNNFN" + crashBasicInformation);
+        //crashBasicInformation.idCrashBasicInformation = Integer.valueOf(session().get("idCrashBasicInformation"));
+
+
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
         int result = crashBasicInformation.updateCrashBasicInformation(crashBasicInformation);
@@ -66,3 +69,4 @@ public class CrashBasicInformation extends Controller {
 
 
 }
+

@@ -12,6 +12,7 @@ public class NarrativaModel extends Model {
     public String notifiedTimeEmergencie;
     public String timeOfArrivalEmergencie;
     public String details;
+    public int idnarrative;
 
     public NarrativaModel() {
     }
@@ -58,10 +59,9 @@ public class NarrativaModel extends Model {
     }
 
     public int updateNarrativa(NarrativaModel narrativaModel) {
+
         int result;
-        String sql = "UPDATE Narrative SET (NotifiedTimePolice, TimeOfArrivalPolice, NotifiedTimeEmergencie, TimeOfArrivalEmergencie, Details)" +
-                " = (:NotifiedTimePolice, :TimeOfArrivalPolice, :NotifiedTimeEmergencie, :TimeOfArrivalEmergencie, :Details)" +
-                "WHERE idNarrative = :idNarrative";
+        String sql = "UPDATE Narrative SET NotifiedTimePolice = :NotifiedTimePolice, TimeOfArrivalPolice = :TimeOfArrivalPolice, NotifiedTimeEmergencie = :NotifiedTimeEmergencie, TimeOfArrivalEmergencie = :TimeOfArrivalEmergencie, Details = :Details WHERE idNarrative = :idNarrative ";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
         update.setParameter("NotifiedTimePolice",  narrativaModel.notifiedTimePolice);
@@ -69,6 +69,7 @@ public class NarrativaModel extends Model {
         update.setParameter("NotifiedTimeEmergencie", narrativaModel.notifiedTimeEmergencie);
         update.setParameter("TimeOfArrivalEmergencie", narrativaModel.timeOfArrivalEmergencie);
         update.setParameter("Details", narrativaModel.details);
+        update.setParameter("idNarrative", narrativaModel.idnarrative);
 
 
         // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
