@@ -40,4 +40,27 @@ public class PersonExtendInformation extends Controller {
         }
     }
 
+
+    public Result PersonExtendInformationUpdate(){
+
+        PersonExtendInformationModel personExtendInformationUpdate = new PersonExtendInformationModel();
+
+        personExtendInformationUpdate = formFactory.form(PersonExtendInformationModel.class).bindFromRequest().get();
+        //editNarrativa.idnarrative = Integer.valueOf(session().get("idNarrative"));
+
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        int result = personExtendInformationUpdate.updatePersonExtendInformationModel(personExtendInformationUpdate);
+
+        if(result == 1){
+            msg.put("message","updated sucessfully");
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
 }

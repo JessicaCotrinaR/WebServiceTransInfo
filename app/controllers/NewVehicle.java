@@ -46,7 +46,6 @@ public class NewVehicle extends Controller {
         }
     }
 
-    //BUSQUEDA
 
     public Result listVehicleByPlateNumber(int para){
         String p = String.valueOf(para);
@@ -62,6 +61,29 @@ public class NewVehicle extends Controller {
             return ok(wrapper);
         }else{
             msg.put("error", "There are no vehicles with the plate number");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
+
+    public Result NewVehicleUpdate(){
+
+        NewVehicleModel newVehicleUpdate = new NewVehicleModel();
+
+        newVehicleUpdate = formFactory.form(NewVehicleModel.class).bindFromRequest().get();
+        //editNarrativa.idnarrative = Integer.valueOf(session().get("idNarrative"));
+
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        int result = newVehicleUpdate.updateVehicleModel(newVehicleUpdate);
+
+        if(result == 1){
+            msg.put("message","updated sucessfully");
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("message","can not update");
             wrapper.set("error", msg);
             return badRequest(wrapper);
         }

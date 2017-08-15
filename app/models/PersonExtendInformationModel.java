@@ -43,7 +43,9 @@ public class PersonExtendInformationModel extends Model {
     public String transportedTo;
     public String transportedBy;
     public String medicalEmergenciesNumber;
-    public String ambulanceCSPNumber;
+    public String idPersonExtendInformation;
+
+    public int ambulanceCSPNumber;
 
     public PersonExtendInformationModel() {
     }
@@ -111,17 +113,12 @@ public class PersonExtendInformationModel extends Model {
 
     public int updatePersonExtendInformationModel(PersonExtendInformationModel personExtendInformationModel) {
         int result;
-        String sql = "UPDATE PersonExtendInformation SET (PersonaFK, CategoryPerson, TypePerson, Row, Seat, OtherLocation," +
-                "RestraintSystem,AirbagsActivation, Expulsion, SpeedRelated, Extraction,  DriverCirncunstanceBC, DistractedDriverBy, DistractedBy, ConditionCollisionTime, " +
-                "SafetyEquipmentUsed, SuspectAlcoholUse, TestStatusAl, TestTypeAl, TestResultAl, TestResultTP, SuscpectControlledSubstances," +
-                " TestStatusSub, TestTypeSub, TestResultSub, ActionsBeforeCollision, InWayToSchool, ActionsAtCollisionTime, " +
-                " LocationWhenCollision, TransportedByME, TransportedTo, TransportedBy, MedicalEmergenciesNumber, AmbulanceCSPNumber ) " +
-                " = ((:PersonaFK, :CategoryPerson, :TypePerson, :Row, :Seat, :OtherLocation," +
-                ":RestraintSystem, :AirbagsActivation, :Expulsion, :SpeedRelated, :Extraction,  :DriverCirncunstanceBC, :DistractedDriverBy, :DistractedBy, :ConditionCollisionTime, " +
-                ":SafetyEquipmentUsed, :SuspectAlcoholUse, :TestStatusAl, :TestTypeAl, :TestResultAl, :TestResultTP, :SuscpectControlledSubstances," +
-                " :TestStatusSub, :TestTypeSub, :TestResultSub, :ActionsBeforeCollision, :InWayToSchool, :ActionsAtCollisionTime, " +
-                " :LocationWhenCollision, :TransportedByME, :TransportedTo, :TransportedBy, :MedicalEmergenciesNumber, :AmbulanceCSPNumber )" +
-                "WHERE idPersonExtendInformation = :idPersonExtendInformation ";
+        String sql = "UPDATE PersonExtendInformation SET PersonaFK = :PersonaFK, CategoryPerson = :CategoryPerson, TypePerson = :TypePerson, Row = :Row, Seat = :Seat, OtherLocation = :OtherLocation," +
+                "RestraintSystem = :RestraintSystem, AirbagsActivation = :AirbagsActivation, Expulsion = :Expulsion, SpeedRelated = :SpeedRelated, Extraction = :Extraction,  DriverCirncunstanceBC = :DriverCirncunstanceBC, DistractedDriverBy = :DistractedDriverBy, DistractedBy = :DistractedBy, ConditionCollisionTime = :ConditionCollisionTime," +
+                "SafetyEquipmentUsed = :SafetyEquipmentUsed, SuspectAlcoholUse = :SuspectAlcoholUse, TestStatusAl = :TestStatusAl, TestTypeAl = :TestTypeAl, TestResultAl = :TestResultAl, TestResultTP = :TestResultTP, SuscpectControlledSubstances = :SuscpectControlledSubstances," +
+                " TestStatusSub = :TestStatusSub, TestTypeSub = :TestTypeSub, TestResultSub = :TestResultSub, ActionsBeforeCollision = :ActionsBeforeCollision, InWayToSchool = :InWayToSchool, ActionsAtCollisionTime = :ActionsAtCollisionTime," +
+                " LocationWhenCollision = :LocationWhenCollision, TransportedByME = :TransportedByME, TransportedTo = :TransportedTo, TransportedBy = :TransportedBy, MedicalEmergenciesNumber = :MedicalEmergenciesNumber, AmbulanceCSPNumber = :AmbulanceCSPNumber" +
+                "WHERE idPersonExtendInformation = :idPersonExtendInformation";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
         update.setParameter("PersonaFK",  personExtendInformationModel.personaFK);
@@ -159,6 +156,8 @@ public class PersonExtendInformationModel extends Model {
         update.setParameter("MedicalEmergenciesNumber", personExtendInformationModel.medicalEmergenciesNumber);
         update.setParameter("AmbulanceCSPNumber", personExtendInformationModel.ambulanceCSPNumber);
 
+        update.setParameter("idPersonExtendInformation", personExtendInformationModel.idPersonExtendInformation);
+
         try {
             result = update.execute();
         }catch (Exception e){
@@ -167,4 +166,7 @@ public class PersonExtendInformationModel extends Model {
         }
         return result;
     }
+
+
+
 }

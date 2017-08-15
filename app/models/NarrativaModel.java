@@ -2,17 +2,24 @@ package models;
 
 import com.avaje.ebean.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by jessicacotrina on 10/12/16.
  */
+
+@Entity
 public class NarrativaModel extends Model {
 
     public String notifiedTimePolice;
     public String timeOfArrivalPolice;
     public String notifiedTimeEmergencie;
     public String timeOfArrivalEmergencie;
+
     public String details;
-    public int idnarrative;
+    @Id
+    public int idNarrative;
 
     public NarrativaModel() {
     }
@@ -58,23 +65,29 @@ public class NarrativaModel extends Model {
         return result;
     }
 
-    public int updateNarrativa(NarrativaModel narrativaModel) {
+    public Integer updateNarrativa(NarrativaModel narrativaModel) {
 
         int result;
         String sql = "UPDATE Narrative SET NotifiedTimePolice = :NotifiedTimePolice, TimeOfArrivalPolice = :TimeOfArrivalPolice, NotifiedTimeEmergencie = :NotifiedTimeEmergencie, TimeOfArrivalEmergencie = :TimeOfArrivalEmergencie, Details = :Details WHERE idNarrative = :idNarrative ";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
         update.setParameter("NotifiedTimePolice",  narrativaModel.notifiedTimePolice);
-        update.setParameter("TimeOfArrivalPolice", narrativaModel.timeOfArrivalPolice);
-        update.setParameter("NotifiedTimeEmergencie", narrativaModel.notifiedTimeEmergencie);
-        update.setParameter("TimeOfArrivalEmergencie", narrativaModel.timeOfArrivalEmergencie);
-        update.setParameter("Details", narrativaModel.details);
-        update.setParameter("idNarrative", narrativaModel.idnarrative);
 
+        update.setParameter("TimeOfArrivalPolice", narrativaModel.timeOfArrivalPolice);
+
+        update.setParameter("NotifiedTimeEmergencie", narrativaModel.notifiedTimeEmergencie);
+
+        update.setParameter("TimeOfArrivalEmergencie", narrativaModel.timeOfArrivalEmergencie);
+
+        update.setParameter("Details", narrativaModel.details);
+
+        update.setParameter("idNarrative", narrativaModel.idNarrative);
+        System.out.println("CCC"+ narrativaModel.idNarrative);
 
         // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
         try {
             result = update.execute();
+
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;

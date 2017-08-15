@@ -169,5 +169,12 @@ POST    /VehicleExtend        controllers.VehicleExtend.insertVehicleExtend()
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 #updates
-POST /crashBasicInformationEdit             controllers.CrashBasicInformation.crashBasicInformationUpdate()
+POST /crashBasicInformationEdit        controllers.CrashBasicInformation.crashBasicInformationUpdate()
+POST    /CrashConditionsEdit           controllers.CrashConditions.CrashConditionsUpdate()
+POST    /NewPersonEdit                 controllers.NewPerson.NewPersonUpdate()
+POST    /NewVehicleEdit                controllers.NewVehicle.NewVehicleUpdate()
+
+POST    /PersonExtendInformationEdit   controllers.PersonExtendInformation.PersonExtendInformationUpdate()
+POST    /VehicleExtendEdit   controllers.VehicleExtend.VehicleExtendUpdate()
+
 POST /NarrativeEdit             controllers.Narrativa.narrativaUpdate()

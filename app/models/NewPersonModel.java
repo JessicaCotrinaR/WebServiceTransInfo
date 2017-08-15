@@ -28,13 +28,8 @@ public class NewPersonModel extends Model {
     public String phoneNumber;
     public String idPersonaFK;
 
-    public String plateNumber;
-    public String make;
-    public String modelo;
-    public String year;
-   // public String ambulanceCSPNumber;
-    //public int idNewVehicle;
-    //update
+    public int idNewPerson;
+
 
     public NewPersonModel() {
     }
@@ -143,9 +138,8 @@ public class NewPersonModel extends Model {
     }
     public int updatePersonModel(NewPersonModel newPersonModel) {
         int result;
-        String sql = "UPDATE Narrative SET (Name, Gender, LicenseType, LicenceNumber, OrganDonor, ExpirationDate, Neighborhood, StreetName, City, StateCountry, ZipCode, PhoneNumber)" +
-                " = (:Name, :Gender, :LicenseType, :LicenceNumber, :OrganDonor, :ExpirationDate, :Neighborhood, :StreetName, :City, :StateCountry, :ZipCode, :PhoneNumber)" +
-                "WHERE idNewPerson = :idNewPerson ";
+        String sql = "UPDATE NewPerson SET Name = :Name, Gender = :Gender, LicenseType = :LicenseType, LicenceNumber = :LicenceNumber, OrganDonor = :OrganDonor, ExpirationDate = :ExpirationDate, Neighborhood = :Neighborhood, StreetName = :StreetName, City = :City, StateCountry = :StateCountry, ZipCode = :ZipCode, PhoneNumber = :PhoneNumber " +
+                "WHERE idNewPerson = :idNewPerson";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
         update.setParameter("Name",  newPersonModel.name);
@@ -160,9 +154,8 @@ public class NewPersonModel extends Model {
         update.setParameter("StateCountry", newPersonModel.stateCountry);
         update.setParameter("ZipCode", newPersonModel.zipCode);
         update.setParameter("PhoneNumber", newPersonModel.phoneNumber);
+        update.setParameter("idNewPerson", newPersonModel.idNewPerson);
 
-
-        // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
         try {
             result = update.execute();
         }catch (Exception e){

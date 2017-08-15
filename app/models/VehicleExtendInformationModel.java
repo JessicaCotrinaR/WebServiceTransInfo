@@ -54,6 +54,7 @@ public class VehicleExtendInformationModel extends Model {
     public String diamondIdNumber;
     public String thereHazardousMaterial;
     public int vehicleFK;
+    public int idVehicleExtendInformation;
 
     public VehicleExtendInformationModel() {
     }
@@ -137,21 +138,14 @@ public class VehicleExtendInformationModel extends Model {
 
     public int updateVehicleExtendInformationModel(VehicleExtendInformationModel vehicleExtendInformationModel) {
         int result;
-        String sql = "UPDATE VehicleExtendInformation SET ((VehicleType, Occupants, VehicleMotor, DirectionTripCB, FunctionSpecialMVT," +
-                "MotorEmergencyVU, MPH, MPHDescription,ManeuverVehicleMotor, DescriptionRoad, Alignment, Slope, LaneCantidad," +
-                " LaneCategoria, LaneTipoCarril, TypeControlTraffic, InOperationLost, PrimeraCategoriaEvent, SegundaCategoriaEvent, " +
-                " TerceraCategoriaEvent,CuartaCategoria, PrimerEvent, SegundoEvent, TecerEvent, CuartoEvent, BusUse, LefthPlace," +
-                "TowedDamage, PrimerDefectoMecánico, SegundoDefectoMecánico, InitialContactPoint, AffectedArea, ExtendDamage, CommercialVehicleUse," +
-                " VehicleMoving, AuthorizedDriver, InspectionUpdate, SpecialPermit, GrossWeight, TotalAxis, VehicleConfiguration," +
-                " HeavyVehicleType, HazardousMaterial,DiamondIdNumber, ThereHazardousMaterial, VehicleFK) " +
-                " = (:VehicleType, :Occupants, :VehicleMotor, :DirectionTripCB, :FunctionSpecialMVT, :MotorEmergencyVU," +
-                " :MPH, :MPHDescription, :ManeuverVehicleMotor, :DescriptionRoad, :Alignment, :Slope, :LaneCantidad, :LaneCategoria, :LaneTipoCarril," +
-                " :TypeControlTraffic, :InOperationLost, :PrimeraCategoriaEvent, :SegundaCategoriaEvent, :TerceraCategoriaEvent," +
-                ":CuartaCategoria, :PrimerEvent, :SegundoEvent, :TecerEvent, :CuartoEvent, :BusUse, :LefthPlace, :TowedDamage, :PrimerDefectoMecánico," +
-                " :SegundoDefectoMecánico, :InitialContactPoint, :AffectedArea, :ExtendDamage, :CommercialVehicleUse, :VehicleMoving, :AuthorizedDriver, " +
-                "  :InspectionUpdate, :SpecialPermit, :GrossWeight, :TotalAxis, :VehicleConfiguration," +
-                " :HeavyVehicleType, :HazardousMaterial, :DiamondIdNumber, :ThereHazardousMaterial, :VehicleFK)" +
-                "WHERE idVehicleExtendInformation = :idVehicleExtendInformation ";
+        String sql = "UPDATE VehicleExtendInformation SET VehicleType = :VehicleType, Occupants = :Occupants, VehicleMotor = :VehicleMotor, DirectionTripCB = :DirectionTripCB, FunctionSpecialMVT = :FunctionSpecialMVT," +
+                "MotorEmergencyVU = :MotorEmergencyVU, MPH = :MPH, MPHDescription = :MPHDescription, ManeuverVehicleMotor = :ManeuverVehicleMotor, DescriptionRoad = :DescriptionRoad, Alignment = :Alignment, Slope = :Slope, LaneCantidad = :LaneCantidad," +
+                " LaneCategoria = :LaneCategoria, LaneTipoCarril = :LaneTipoCarril, TypeControlTraffic = :TypeControlTraffic, InOperationLost = :InOperationLost, PrimeraCategoriaEvent = :PrimeraCategoriaEvent, SegundaCategoriaEvent = :SegundaCategoriaEvent, " +
+                " TerceraCategoriaEvent = :TerceraCategoriaEvent, CuartaCategoria = :CuartaCategoria, PrimerEvent =:PrimerEvent, SegundoEvent = :SegundoEvent, TecerEvent = :TecerEvent, CuartoEvent = :CuartoEvent, BusUse = :BusUse, LefthPlace = :LefthPlace," +
+                "TowedDamage = :TowedDamage, PrimerDefectoMecánico = :PrimerDefectoMecánico, SegundoDefectoMecánico = :SegundoDefectoMecánico, InitialContactPoint = :InitialContactPoint, AffectedArea = :AffectedArea, ExtendDamage = :ExtendDamage, CommercialVehicleUse = :CommercialVehicleUse," +
+                " VehicleMoving = :VehicleMoving, AuthorizedDriver = :AuthorizedDriver, InspectionUpdate = :InspectionUpdate, SpecialPermit = :SpecialPermit, GrossWeight = :GrossWeight, TotalAxis = :TotalAxis, VehicleConfiguration = :VehicleConfiguration," +
+                " HeavyVehicleType = :HeavyVehicleType, HazardousMaterial = :HazardousMaterial,DiamondIdNumber = :DiamondIdNumber, ThereHazardousMaterial = :ThereHazardousMaterial, VehicleFK = :VehicleFK " +
+                "WHERE idVehicleExtendInformation = :idVehicleExtendInformation";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
         update.setParameter("VehicleType",  vehicleExtendInformationModel.vehicleType);
@@ -200,6 +194,8 @@ public class VehicleExtendInformationModel extends Model {
         update.setParameter("DiamondIdNumber", vehicleExtendInformationModel.diamondIdNumber);
         update.setParameter("ThereHazardousMaterial", vehicleExtendInformationModel.thereHazardousMaterial);
         update.setParameter("VehicleFK", vehicleExtendInformationModel.vehicleFK);
+
+        update.setParameter("idVehicleExtendInformation", vehicleExtendInformationModel.idVehicleExtendInformation);
 
 
         try {

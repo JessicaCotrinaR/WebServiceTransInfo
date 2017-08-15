@@ -39,4 +39,26 @@ public class VehicleExtend  extends Controller{
             return badRequest("Error interno de operación");
         }
     }
+
+    public Result VehicleExtendUpdate(){
+
+        VehicleExtendInformationModel vehicleExtendInformationM = new VehicleExtendInformationModel();
+
+        vehicleExtendInformationM = formFactory.form(VehicleExtendInformationModel.class).bindFromRequest().get();
+        //editNarrativa.idnarrative = Integer.valueOf(session().get("idNarrative"));
+
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        int result = vehicleExtendInformationM.updateVehicleExtendInformationModel(vehicleExtendInformationM);
+
+        if(result == 1){
+            msg.put("message","updated sucessfully");
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
 }

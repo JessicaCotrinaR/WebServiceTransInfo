@@ -97,8 +97,7 @@ public class CrashConditionsModel extends Model {
 
     public int updateCrashConditions(CrashConditionsModel crashConditionsModel) {
         int result;
-        String sql = "UPDATE CrashConditions SET (CollisionTypeDescriptionES, EventDescriptionES, EventLocationDescriptionES, MannerofColisionDescriptionES, WeatherConditionUno, WeatherConditionDos, VisibilityCondition, PavementCondition, Environmental, RoadDescription, WithinInterchange, SpecifLocation, InserctionType, SchoolBusRelated, NearConstruction, CrashLocation, WorkerZoneType, WorkerPresent, PolicePresent)" +
-                " = (:CollisionTypeDescriptionES, :EventDescriptionES, :EventLocationDescriptionES, :MannerofColisionDescriptionES, :WeatherConditionUno, :WeatherConditionDos, :VisibilityCondition, :PavementCondition, :Environmental, :RoadDescription, :WithinInterchange, :SpecifLocation, :InserctionType, :SchoolBusRelated, :NearConstruction, :CrashLocation, :WorkerZoneType, :WorkerPresent, :PolicePresent)" +
+        String sql = "UPDATE CrashConditions SET CollisionTypeDescriptionES = :CollisionTypeDescriptionES, EventDescriptionES = :EventDescriptionES, EventLocationDescriptionES = :EventLocationDescriptionES, MannerofColisionDescriptionES = :MannerofColisionDescriptionES, WeatherConditionUno = :WeatherConditionUno, WeatherConditionDos = :WeatherConditionDos, VisibilityCondition = :VisibilityCondition, PavementCondition = :PavementCondition, Environmental = :Environmental, RoadDescription = :RoadDescription, WithinInterchange = :WithinInterchange, SpecifLocation = :SpecifLocation, InserctionType = :InserctionType, SchoolBusRelated = :SchoolBusRelated, NearConstruction = :NearConstruction, CrashLocation = :CrashLocation, WorkerZoneType = :WorkerZoneType, WorkerPresent = :WorkerPresent, PolicePresent = :PolicePresent " +
                 "WHERE idCrashConditions = :idCrashConditions";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
@@ -121,10 +120,8 @@ public class CrashConditionsModel extends Model {
         update.setParameter("WorkerZoneType", crashConditionsModel.workerZoneType);
         update.setParameter("WorkerPresent", crashConditionsModel.workerPresent);
         update.setParameter("PolicePresent", crashConditionsModel.policePresent);
-        update.setParameter("PropertyDescriptionES", crashConditionsModel.idCrashBasicInformation);
-//        update.setParameter("LocationDescriptionES", crashConditionsModel.locationDescriptionES);
 
-        //update.setParameter("idCrashBasicInformation", crashConditionsModel.idCrashBasicInformation);
+        update.setParameter("idCrashConditions", crashConditionsModel.idCrashConditions);
         try {
             result = update.execute();
         }catch (Exception e){
@@ -133,6 +130,7 @@ public class CrashConditionsModel extends Model {
         }
         return result;
     }
+
 
 
 

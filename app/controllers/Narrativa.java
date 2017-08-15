@@ -45,8 +45,9 @@ public class Narrativa extends Controller {
     public Result narrativaUpdate(){
 
         NarrativaModel editNarrativa = new NarrativaModel();
+        System.out.println("VAMOS" + editNarrativa.details);
         editNarrativa = formFactory.form(NarrativaModel.class).bindFromRequest().get();
-        editNarrativa.idnarrative = Integer.valueOf(session().get("idNarrative"));
+        //editNarrativa.idnarrative = Integer.valueOf(session().get("idNarrative"));
 
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();

@@ -33,7 +33,7 @@ public class CrashBasicInformationModel extends Model {
     public String locationDescriptionES;
     public String zoneTypeDescriptionES;
     public int officerfk;
-    public int idcrashBasicInformation;
+    public int idCrashBasicInformation;
 
     public CrashBasicInformationModel() {
     }
@@ -98,9 +98,8 @@ public class CrashBasicInformationModel extends Model {
 
     public int updateCrashBasicInformation(CrashBasicInformationModel crashBasicInformationModel) {
         int result;
-        String sql = "UPDATE Accident SET CrashType, CaseNumber, CrashDate, Hour, UnitVehiculos, UnitAutomovilistas, UnitPedestrians, UnitInjured, UnitFatalaties, Longitude, Latitude, Address, CityDescriptionES, CountryDescriptionES, NearToDescriptionEs, Name, Distance, MeasurementDescriptionES, DirectionDescriptionES, PropertyDescriptionES, LocationDescriptionES, ZoneTypeDescriptionES, Officerfk " +
-                " = :CrashType, :CaseNumber, :CrashDate, :Hour, :UnitVehiculos, :UnitAutomovilistas, :UnitPedestrians, :UnitInjured, :UnitFatalaties, :Longitude, :Latitude, :Address, :CityDescriptionES, :CountryDescriptionES, :NearToDescriptionEs, :Name, :Distance, :MeasurementDescriptionES, :DirectionDescriptionES, :PropertyDescriptionES, :LocationDescriptionES, :ZoneTypeDescriptionES, :Officerfk " +
-                " WHERE idCrashBasicInformation = :idCrashBasicInformation";
+        String sql = "UPDATE Accident SET CrashType = :CrashType, CaseNumber = :CaseNumber, CrashDate = :CrashDate, Hour = :Hour, UnitVehiculos = :UnitVehiculos, UnitAutomovilistas = :UnitAutomovilistas, UnitPedestrians = :UnitPedestrians, UnitInjured = :UnitInjured, UnitFatalaties = :UnitFatalaties, Longitude = :Longitude, Latitude = :Latitude, Address = :Address, CityDescriptionES = :CityDescriptionES, CountryDescriptionES = :CountryDescriptionES, NearToDescriptionEs = :NearToDescriptionEs, Name = :Name, Distance = :Distance, MeasurementDescriptionES = :MeasurementDescriptionES, DirectionDescriptionES = :DirectionDescriptionES, PropertyDescriptionES = :PropertyDescriptionES, LocationDescriptionES = :LocationDescriptionES, ZoneTypeDescriptionES = :ZoneTypeDescriptionES, Officerfk = :Officerfk " +
+                "WHERE idCrashBasicInformation = :idCrashBasicInformation";
         System.out.println(sql);
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
@@ -127,7 +126,7 @@ public class CrashBasicInformationModel extends Model {
         update.setParameter("LocationDescriptionES", crashBasicInformationModel.locationDescriptionES);
         update.setParameter("ZoneTypeDescriptionES", crashBasicInformationModel.zoneTypeDescriptionES);
         update.setParameter("Officerfk", crashBasicInformationModel.officerfk);
-        update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idcrashBasicInformation);
+        update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
 
 
         System.out.println("Update: " + update.getSql());

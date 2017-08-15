@@ -41,4 +41,26 @@ public class CrashConditions extends Controller {
             return badRequest("Error interno de operación");
         }
     }
+
+    public Result CrashConditionsUpdate(){
+
+        CrashConditionsModel crashConditionsM =  formFactory.form(CrashConditionsModel.class).bindFromRequest().get();
+        //System.out.println("goHHHHOLLLALDJDDNNFNNFN" + crashBasicInformation);
+        //crashBasicInformation.idCrashBasicInformation = Integer.valueOf(session().get("idCrashBasicInformation"));
+
+
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        int result = crashConditionsM.updateCrashConditions(crashConditionsM);
+
+        if(result == 1){
+            msg.put("message","updated sucessfully");
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
 }

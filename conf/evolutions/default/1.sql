@@ -27,7 +27,7 @@ create table crash_basic_information_model (
   location_description_es       varchar(255),
   zone_type_description_es      varchar(255),
   officerfk                     integer,
-  idcrash_basic_information     integer
+  id_crash_basic_information    integer
 );
 
 create table list_report_model (
@@ -46,6 +46,16 @@ create table list_report_model (
   modelo                        varchar(255)
 );
 
+create table narrativa_model (
+  id_narrative                  integer auto_increment not null,
+  notified_time_police          varchar(255),
+  time_of_arrival_police        varchar(255),
+  notified_time_emergencie      varchar(255),
+  time_of_arrival_emergencie    varchar(255),
+  details                       varchar(255),
+  constraint pk_narrativa_model primary key (id_narrative)
+);
+
 create table new_person_model (
   name                          varchar(255),
   gender                        varchar(255),
@@ -60,10 +70,7 @@ create table new_person_model (
   zip_code                      integer,
   phone_number                  varchar(255),
   id_persona_fk                 varchar(255),
-  plate_number                  varchar(255),
-  make                          varchar(255),
-  modelo                        varchar(255),
-  year                          varchar(255)
+  id_new_person                 integer
 );
 
 create table new_vehicle_model (
@@ -97,6 +104,8 @@ create table list_vehicle_of_person_model (
 drop table if exists crash_basic_information_model;
 
 drop table if exists list_report_model;
+
+drop table if exists narrativa_model;
 
 drop table if exists new_person_model;
 

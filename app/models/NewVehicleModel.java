@@ -134,9 +134,7 @@ public class NewVehicleModel extends Model {
 
     public int updateVehicleModel(NewVehicleModel newVehicleModel) {
         int result;
-        String sql = "UPDATE Narrative SET (PlateNumber, VehicleJurisdiction, State, Vin, Year, Make, modelos, RegistrationNumber, InsuranceCompany, PurchaseDate, ExpirationDate, idPersonaFK)" +
-                " = (:PlateNumber, :VehicleJurisdiction, :State, :Vin, :Year, :Make, :modelos, :RegistrationNumber, :InsuranceCompany, :PurchaseDate, :ExpirationDate, :idPersonaFK)" +
-                "WHERE idNewVehicle = :idNewVehicle ";
+        String sql = "UPDATE NewVehicle SET PlateNumber = :PlateNumber, VehicleJurisdiction = :VehicleJurisdiction, State = :State, Vin = :Vin, Year = :Year, Make = :Make, modelos = :modelos, RegistrationNumber = :RegistrationNumber, InsuranceCompany = :InsuranceCompany, PurchaseDate = :PurchaseDate, ExpirationDate = :ExpirationDate, idPersonaFK = :idPersonaFK WHERE idNewVehicle = :idNewVehicle";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
         update.setParameter("PlateNumber",  newVehicleModel.plateNumber);
@@ -151,6 +149,8 @@ public class NewVehicleModel extends Model {
         update.setParameter("PurchaseDate", newVehicleModel.purchaseDate);
         update.setParameter("ExpirationDate", newVehicleModel.expirationDate);
         update.setParameter("idPersonaFK", newVehicleModel.idPersonaFK);
+
+        update.setParameter("idNewVehicle", newVehicleModel.idNewVehicle);
 
         try {
             result = update.execute();

@@ -64,5 +64,25 @@ public class NewPerson extends Controller {
         }
     }
 
+    public Result NewPersonUpdate(){
+
+        NewPersonModel newPersonM =  formFactory.form(NewPersonModel.class).bindFromRequest().get();
+        //crashBasicInformation.idCrashBasicInformation = Integer.valueOf(session().get("idCrashBasicInformation"));
+
+
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        int result = newPersonM.updatePersonModel(newPersonM);
+
+        if(result == 1){
+            msg.put("message","updated sucessfully");
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
 
 }
