@@ -4,6 +4,8 @@ import com.avaje.ebean.*;
 import com.avaje.ebean.annotation.Sql;
 
 import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jessicacotrina on 10/12/16.
@@ -30,8 +32,9 @@ public class CrashConditionsModel extends Model {
     public String workerZoneType;
     public String workerPresent;
     public String policePresent;
-    public String idCrashBasicInformation;
+    public int crashConditionFK;
     public String idCrashConditions;
+    public String accidenteFK;
 
     public CrashConditionsModel() {
     }
@@ -62,7 +65,7 @@ public class CrashConditionsModel extends Model {
         insert.setParameter("PolicePresent", crashConditionsModel.policePresent);
 
 
-        System.out.println("Update: " + insert.getSql());
+        System.out.println("Insert: " + insert.getSql());
         Transaction tx = Ebean.beginTransaction();
         boolean success= true;
 
@@ -95,8 +98,8 @@ public class CrashConditionsModel extends Model {
         return result;
     }
 
-    public int updateCrashConditions(CrashConditionsModel crashConditionsModel) {
-        int result;
+    public long updateCrashConditions(CrashConditionsModel crashConditionsModel) {
+        long result;
         String sql = "UPDATE CrashConditions SET CollisionTypeDescriptionES = :CollisionTypeDescriptionES, EventDescriptionES = :EventDescriptionES, EventLocationDescriptionES = :EventLocationDescriptionES, MannerofColisionDescriptionES = :MannerofColisionDescriptionES, WeatherConditionUno = :WeatherConditionUno, WeatherConditionDos = :WeatherConditionDos, VisibilityCondition = :VisibilityCondition, PavementCondition = :PavementCondition, Environmental = :Environmental, RoadDescription = :RoadDescription, WithinInterchange = :WithinInterchange, SpecifLocation = :SpecifLocation, InserctionType = :InserctionType, SchoolBusRelated = :SchoolBusRelated, NearConstruction = :NearConstruction, CrashLocation = :CrashLocation, WorkerZoneType = :WorkerZoneType, WorkerPresent = :WorkerPresent, PolicePresent = :PolicePresent " +
                 "WHERE idCrashConditions = :idCrashConditions";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
@@ -122,15 +125,91 @@ public class CrashConditionsModel extends Model {
         update.setParameter("PolicePresent", crashConditionsModel.policePresent);
 
         update.setParameter("idCrashConditions", crashConditionsModel.idCrashConditions);
+
+        System.out.println("Update: " + update.getSql());
+        Transaction tx = Ebean.beginTransaction();
+        boolean success= true;
+
         try {
             result = update.execute();
+            String sqlgetId = "SELECT @@IDENTITY as theId";
+            SqlRow id = Ebean.createSqlQuery(sqlgetId)
+                    .findUnique();
+            result = id.getLong("theId");
+            System.out.println("Resulting Id: " + result);
+
+
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;
+            success= false;
+        }
+        finally {
+            if(success){
+                tx.commit();
+            }
+            else {
+                tx.rollback();
+            }
+
         }
         return result;
     }
 
+
+    public List<CrashConditionsModel> searchByIdAccident(String accidenteFK){
+
+        Transaction t = Ebean.beginTransaction();
+        List<CrashConditionsModel> listCondition = new ArrayList<>();
+        try {
+            String sql = "SELECT c.CollisionTypeDescriptionES, c.EventDescriptionES, c.EventLocationDescriptionES, c.MannerofColisionDescriptionES, c.WeatherConditionUno, c.WeatherConditionDos, c.VisibilityCondition, c.PavementCondition, c.Environmental, c.RoadDescription, c.WithinInterchange, c.SpecifLocation, c.InserctionType, c.SchoolBusRelated, c.NearConstruction, c.CrashLocation, c.WorkerZoneType, c.WorkerPresent, c.PolicePresent " +
+                    "FROM AccidentCondition b, CrashConditions c, Accident a " +
+                    "WHERE b.AccidenteFK = a.idCrashBasicInformation AND " +
+                    "b.CrashConditionFK = c.idCrashConditions " +
+                    "AND a.idCrashBasicInformation = 87";
+
+            RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("c.CollisionTypeDescriptionES", "collisionTypeDescriptionES")
+                    .columnMapping("c.EventDescriptionES", "eventDescriptionES")
+                    .columnMapping("c.EventLocationDescriptionES", "eventLocationDescriptionES")
+                    .columnMapping("c.MannerofColisionDescriptionES", "mannerofColisionDescriptionES")
+                    .columnMapping("c.WeatherConditionUno", "weatherConditionUno")
+                    .columnMapping("c.WeatherConditionDos", "weatherConditionDos")
+                    .columnMapping("c.VisibilityCondition", "visibilityCondition")
+                    .columnMapping("c.PavementCondition", "pavementCondition")
+                    .columnMapping("c.Environmental", "environmental")
+                    .columnMapping("c.RoadDescription", "roadDescription")
+                    .columnMapping("c.WithinInterchange", "withinInterchange")
+                    .columnMapping("c.SpecifLocation", "specifLocation")
+                    .columnMapping("c.InserctionType", "inserctionType")
+                    .columnMapping("c.SchoolBusRelated", "schoolBusRelated")
+                    .columnMapping("c.NearConstruction", "nearConstruction")
+                    .columnMapping("c.CrashLocation", "crashLocation")
+                    .columnMapping("c.WorkerZoneType", "workerZoneType")
+                    .columnMapping("c.WorkerPresent", "workerPresent")
+                    .columnMapping("c.PolicePresent", "policePresent")
+                   // .columnMapping("b.CrashConditionFK", "crashConditionFK")
+
+                    .create();
+
+            Query<CrashConditionsModel> query = Ebean.find(CrashConditionsModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("AccidenteFK", accidenteFK);
+            listCondition = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listCondition;
+
+    }
 
 
 

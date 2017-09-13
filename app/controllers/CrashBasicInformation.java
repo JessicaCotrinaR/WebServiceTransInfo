@@ -8,6 +8,10 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.List;
+
+import static play.libs.Json.toJson;
+
 /**
  * Created by jessicacotrina on 10/12/16.
  */
@@ -65,6 +69,22 @@ public class CrashBasicInformation extends Controller {
         }
     }
 
+    public Result listcrashBasicInformation(String caseNumber){
+
+        CrashBasicInformationModel p = new CrashBasicInformationModel();
+        List<CrashBasicInformationModel> reportC = p.searchByCaseNumber(caseNumber);
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        if(reportC != null) {
+            msg.set("ReportList", toJson(reportC));
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("error", "There are no list report");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
 
 
 

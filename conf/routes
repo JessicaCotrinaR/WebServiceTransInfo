@@ -178,3 +178,7 @@ POST    /PersonExtendInformationEdit   controllers.PersonExtendInformation.Perso
 POST    /VehicleExtendEdit   controllers.VehicleExtend.VehicleExtendUpdate()
 
 POST /NarrativeEdit             controllers.Narrativa.narrativaUpdate()
+
+
+GET     /ListAccidentByCaseNumber/:caseNumber       controllers.CrashBasicInformation.listcrashBasicInformation(caseNumber:String)
+GET     /CrashConditionsByIdAccident/:idAccident       controllers.CrashConditions.CrashConditionsByIdAccident(idAccident:String)

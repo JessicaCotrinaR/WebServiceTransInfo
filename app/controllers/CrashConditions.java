@@ -8,6 +8,10 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.List;
+
+import static play.libs.Json.toJson;
+
 /**
  * Created by jessicacotrina on 10/12/16.
  */
@@ -51,14 +55,34 @@ public class CrashConditions extends Controller {
 
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
-        int result = crashConditionsM.updateCrashConditions(crashConditionsM);
+        long result = crashConditionsM.updateCrashConditions(crashConditionsM);
 
-        if(result == 1){
+        if(result > 0){
             msg.put("message","updated sucessfully");
+            msg.put("CrashConditionId", result);
             wrapper.set("success", msg);
             return ok(wrapper);
         }else{
             msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
+
+    public Result CrashConditionsByIdAccident(String idAccident){
+        // String ps = String.valueOf(para);
+        //String ps = "2345678";
+        CrashConditionsModel p = new CrashConditionsModel();
+        List<CrashConditionsModel> reportC = p.searchByIdAccident(idAccident);
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        if(reportC != null) {
+            msg.set("ReportList", toJson(reportC));
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("error", "There are no list report");
             wrapper.set("error", msg);
             return badRequest(wrapper);
         }
