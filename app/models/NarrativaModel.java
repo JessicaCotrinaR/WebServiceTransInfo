@@ -4,6 +4,8 @@ import com.avaje.ebean.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jessicacotrina on 10/12/16.
@@ -65,9 +67,9 @@ public class NarrativaModel extends Model {
         return result;
     }
 
-    public Integer updateNarrativa(NarrativaModel narrativaModel) {
+    public long updateNarrativa(NarrativaModel narrativaModel) {
 
-        int result;
+        long result;
         String sql = "UPDATE Narrative SET NotifiedTimePolice = :NotifiedTimePolice, TimeOfArrivalPolice = :TimeOfArrivalPolice, NotifiedTimeEmergencie = :NotifiedTimeEmergencie, TimeOfArrivalEmergencie = :TimeOfArrivalEmergencie, Details = :Details WHERE idNarrative = :idNarrative ";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
@@ -82,17 +84,74 @@ public class NarrativaModel extends Model {
         update.setParameter("Details", narrativaModel.details);
 
         update.setParameter("idNarrative", narrativaModel.idNarrative);
-        System.out.println("CCC"+ narrativaModel.idNarrative);
+
+        System.out.println("Update: " + update.getSql());
+        Transaction tx = Ebean.beginTransaction();
+        boolean success= true;
 
         // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
         try {
             result = update.execute();
+            String sqlgetId = "SELECT @@IDENTITY as theId";
+            SqlRow id = Ebean.createSqlQuery(sqlgetId)
+                    .findUnique();
+            result = id.getLong("theId");
+            System.out.println("Resulting Id: " + result);
+
 
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;
+            success= false;
+        }
+        finally {
+            if(success){
+                tx.commit();
+            }
+            else {
+                tx.rollback();
+            }
         }
         return result;
+    }
+
+    public List<NarrativaModel> ListNarrativaByIdAccident(String accidentfk){
+
+        Transaction t = Ebean.beginTransaction();
+        List<NarrativaModel> listCondition = new ArrayList<>();
+        try {
+            String sql = "SELECT  n.NotifiedTimePolice, n.TimeOfArrivalPolice, n.NotifiedTimeEmergencie, n.TimeOfArrivalEmergencie, n.Details " +
+                    "FROM AccidentNarrativa b, Narrative n, Accident a " +
+                    "WHERE b.AccidenteFK = a.idCrashBasicInformation AND " +
+                    "b.idAccidentNarrativa = n.idNarrative " +
+                    "AND a.idCrashBasicInformation = 5";
+
+            RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("n.NotifiedTimePolice", "notifiedTimePolice")
+                    .columnMapping("n.TimeOfArrivalPolice", "timeOfArrivalPolice")
+                    .columnMapping("n.NotifiedTimeEmergencie", "notifiedTimeEmergencie")
+                    .columnMapping("n.TimeOfArrivalEmergencie", "timeOfArrivalEmergencie")
+                    .columnMapping("n.Details", "details")
+
+                    .create();
+
+            Query<NarrativaModel> query = Ebean.find(NarrativaModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("AccidenteFK", accidentfk);
+            listCondition = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listCondition;
+
     }
 
 }

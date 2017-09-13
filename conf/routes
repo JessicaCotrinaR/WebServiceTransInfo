@@ -182,3 +182,4 @@ POST /NarrativeEdit             controllers.Narrativa.narrativaUpdate()
 
 GET     /ListAccidentByCaseNumber/:caseNumber       controllers.CrashBasicInformation.listcrashBasicInformation(caseNumber:String)
 GET     /CrashConditionsByIdAccident/:idAccident       controllers.CrashConditions.CrashConditionsByIdAccident(idAccident:String)
+GET     /NarrativeByIdAccident/:accidentfk       controllers.Narrativa.ListNarrativaByIdAccident(accidentfk:String)

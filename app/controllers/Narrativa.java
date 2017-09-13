@@ -8,6 +8,10 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.List;
+
+import static play.libs.Json.toJson;
+
 /**
  * Created by jessicacotrina on 10/12/16.
  */
@@ -51,14 +55,33 @@ public class Narrativa extends Controller {
 
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
-        int result = editNarrativa.updateNarrativa(editNarrativa);
+        long result = editNarrativa.updateNarrativa(editNarrativa);
         System.out.println("ya"+result);
-        if(result == 1){
+        if(result > 0){
             msg.put("message","updated sucessfully");
             wrapper.set("success", msg);
+            msg.put("NarrativaId", result);
+
             return ok(wrapper);
         }else{
             msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
+    public Result ListNarrativaByIdAccident(String accidentfk){
+
+        NarrativaModel p = new NarrativaModel();
+        List<NarrativaModel> reportC = p.ListNarrativaByIdAccident(accidentfk);
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        if(reportC != null) {
+            msg.set("ReportList", toJson(reportC));
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("error", "There are no list report");
             wrapper.set("error", msg);
             return badRequest(wrapper);
         }

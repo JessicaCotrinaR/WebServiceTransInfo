@@ -56,11 +56,14 @@ public class CrashBasicInformation extends Controller {
 
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
-        int result = crashBasicInformation.updateCrashBasicInformation(crashBasicInformation);
+        long result = crashBasicInformation.updateCrashBasicInformation(crashBasicInformation);
 
-        if(result == 1){
+        if(result > 0 ){
             msg.put("message","updated sucessfully");
             wrapper.set("success", msg);
+            msg.put("AccidentId", result);
+
+
             return ok(wrapper);
         }else{
             msg.put("message","can not update");

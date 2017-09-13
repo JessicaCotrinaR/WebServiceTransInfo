@@ -162,7 +162,7 @@ public class CrashConditionsModel extends Model {
         Transaction t = Ebean.beginTransaction();
         List<CrashConditionsModel> listCondition = new ArrayList<>();
         try {
-            String sql = "SELECT c.CollisionTypeDescriptionES, c.EventDescriptionES, c.EventLocationDescriptionES, c.MannerofColisionDescriptionES, c.WeatherConditionUno, c.WeatherConditionDos, c.VisibilityCondition, c.PavementCondition, c.Environmental, c.RoadDescription, c.WithinInterchange, c.SpecifLocation, c.InserctionType, c.SchoolBusRelated, c.NearConstruction, c.CrashLocation, c.WorkerZoneType, c.WorkerPresent, c.PolicePresent " +
+            String sql = "SELECT c.CollisionTypeDescriptionES, c.EventDescriptionES, c.EventLocationDescriptionES, c.MannerofColisionDescriptionES, c.WeatherConditionUno, c.WeatherConditionDos, c.VisibilityCondition, c.PavementCondition, c.Environmental, c.RoadDescription, c.WithinInterchange, c.SpecifLocation, c.InserctionType, c.SchoolBusRelated, c.NearConstruction, c.CrashLocation, c.WorkerZoneType, c.WorkerPresent, c.PolicePresent,b.CrashConditionFK, c.idCrashConditions, b.AccidenteFK " +
                     "FROM AccidentCondition b, CrashConditions c, Accident a " +
                     "WHERE b.AccidenteFK = a.idCrashBasicInformation AND " +
                     "b.CrashConditionFK = c.idCrashConditions " +
@@ -188,7 +188,9 @@ public class CrashConditionsModel extends Model {
                     .columnMapping("c.WorkerZoneType", "workerZoneType")
                     .columnMapping("c.WorkerPresent", "workerPresent")
                     .columnMapping("c.PolicePresent", "policePresent")
-                   // .columnMapping("b.CrashConditionFK", "crashConditionFK")
+                    .columnMapping("b.CrashConditionFK", "crashConditionFK")
+                    .columnMapping("c.idCrashConditions", "idCrashConditions")
+                    .columnMapping("b.AccidenteFK", "accidenteFK")
 
                     .create();
 

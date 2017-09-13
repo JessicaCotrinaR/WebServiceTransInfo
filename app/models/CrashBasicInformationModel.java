@@ -99,8 +99,8 @@ public class CrashBasicInformationModel extends Model {
         return result;
     }
 
-    public int updateCrashBasicInformation(CrashBasicInformationModel crashBasicInformationModel) {
-        int result;
+    public long updateCrashBasicInformation(CrashBasicInformationModel crashBasicInformationModel) {
+        long result;
         String sql = "UPDATE Accident SET CrashType = :CrashType, CaseNumber = :CaseNumber, CrashDate = :CrashDate, Hour = :Hour, UnitVehiculos = :UnitVehiculos, UnitAutomovilistas = :UnitAutomovilistas, UnitPedestrians = :UnitPedestrians, UnitInjured = :UnitInjured, UnitFatalaties = :UnitFatalaties, Longitude = :Longitude, Latitude = :Latitude, Address = :Address, CityDescriptionES = :CityDescriptionES, CountryDescriptionES = :CountryDescriptionES, NearToDescriptionEs = :NearToDescriptionEs, Name = :Name, Distance = :Distance, MeasurementDescriptionES = :MeasurementDescriptionES, DirectionDescriptionES = :DirectionDescriptionES, PropertyDescriptionES = :PropertyDescriptionES, LocationDescriptionES = :LocationDescriptionES, ZoneTypeDescriptionES = :ZoneTypeDescriptionES, Officerfk = :Officerfk " +
                 "WHERE idCrashBasicInformation = :idCrashBasicInformation";
         System.out.println(sql);
@@ -133,11 +133,31 @@ public class CrashBasicInformationModel extends Model {
 
 
         System.out.println("Update: " + update.getSql());
+        Transaction tx = Ebean.beginTransaction();
+        boolean success= true;
+
         try {
             result = update.execute();
+            String sqlgetId = "SELECT @@IDENTITY as theId";
+            SqlRow id = Ebean.createSqlQuery(sqlgetId)
+                    .findUnique();
+            result = id.getLong("theId");
+            System.out.println("Resulting Id: " + result);
+
+
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;
+            success= false;
+        }
+        finally {
+            if(success){
+                tx.commit();
+            }
+            else {
+                tx.rollback();
+            }
+
         }
         return result;
     }
