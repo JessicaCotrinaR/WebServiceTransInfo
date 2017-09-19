@@ -26,6 +26,7 @@ public class NewVehicleModel extends Model {
     public String purchaseDate;
     public String expirationDate;
     public String idPersonaFK;
+    public int accidenteFK;
     public int idNewVehicle;
     public String name;
     public String licenceNumber;
@@ -161,5 +162,50 @@ public class NewVehicleModel extends Model {
         return result;
     }
 
+    public List<NewVehicleModel> ListNewVehicleByIdAccident(String accidentId){
 
+        Transaction t = Ebean.beginTransaction();
+        List<NewVehicleModel> listNewVehicle = new ArrayList<>();
+        try {
+            String sql = "SELECT  n.PlateNumber, n.VehicleJurisdiction, n.State, n.Vin, n.Year, n.Make, n.modelos, n.RegistrationNumber, n.InsuranceCompany, n.PurchaseDate, n.ExpirationDate, n.idPersonaFK, n.idNewVehicle, b.Accidentfk " +
+                    "FROM AccidentVehicle b, NewVehicle n, Accident a " +
+                    "WHERE b.Accidentfk = a.idCrashBasicInformation AND " +
+                    "b.Vehiclefk = n.idNewVehicle " +
+                    "AND a.idCrashBasicInformation =" + accidentId;
+
+            RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("n.PlateNumber", "plateNumber")
+                    .columnMapping("n.VehicleJurisdiction", "vehicleJurisdiction")
+                    .columnMapping("n.State", "state")
+                    .columnMapping("n.Vin", "vin")
+                    .columnMapping("n.Year", "year")
+                    .columnMapping("n.Make", "make")
+                    .columnMapping("n.modelos", "modelos")
+                    .columnMapping("n.RegistrationNumber", "registrationNumber")
+                    .columnMapping("n.InsuranceCompany", "insuranceCompany")
+                    .columnMapping("n.PurchaseDate", "purchaseDate")
+                    .columnMapping("n.ExpirationDate", "expirationDate")
+                    .columnMapping("n.idPersonaFK", "idPersonaFK")
+                    .columnMapping("n.idNewVehicle", "idNewVehicle")
+                    .columnMapping("b.Accidentfk", "accidenteFK")
+                    .create();
+
+            Query<NewVehicleModel> query = Ebean.find(NewVehicleModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("AccidenteFK", accidentId);
+            listNewVehicle = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listNewVehicle;
+
+    }
 }

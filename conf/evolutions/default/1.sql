@@ -52,6 +52,8 @@ create table narrativa_model (
   time_of_arrival_police        varchar(255),
   notified_time_emergencie      varchar(255),
   time_of_arrival_emergencie    varchar(255),
+  narrativa_fk                  integer,
+  accidente_fk                  integer,
   details                       varchar(255),
   constraint pk_narrativa_model primary key (id_narrative)
 );
@@ -69,7 +71,7 @@ create table new_person_model (
   state_country                 varchar(255),
   zip_code                      integer,
   phone_number                  varchar(255),
-  id_persona_fk                 varchar(255),
+  accidente_fk                  integer,
   id_new_person                 integer
 );
 
@@ -86,6 +88,7 @@ create table new_vehicle_model (
   purchase_date                 varchar(255),
   expiration_date               varchar(255),
   id_persona_fk                 varchar(255),
+  accidente_fk                  integer,
   id_new_vehicle                integer,
   name                          varchar(255),
   licence_number                varchar(255)

@@ -26,7 +26,9 @@ public class NewPersonModel extends Model {
     public String stateCountry;
     public int zipCode;
     public String phoneNumber;
-    public String idPersonaFK;
+    //public String idPersonaFK;
+    //public int  person_fk;
+    public int accidenteFK;
 
     public int idNewPerson;
 
@@ -55,11 +57,7 @@ public class NewPersonModel extends Model {
         insert.setParameter("ZipCode", newPersonModel.zipCode);
         insert.setParameter("PhoneNumber", newPersonModel.phoneNumber);
         //insert.setParameter("TransportedByMedicalEmergencies", newPersonModel.transportedByMedicalEmergencies);
-        //insert.setParameter("TransportedTo", newPersonModel.transportedTo);
-        //insert.setParameter("TransportedBy", newPersonModel.transportedBy);
-        //insert.setParameter("MedicalEmergenciesNumber", newPersonModel.medicalEmergenciesNumber);
-        //insert.setParameter("AmbulanceCSPNumber", newPersonModel.ambulanceCSPNumber);
-        //insert.setParameter("idNewVehicle", newPersonModel.idNewVehicle);
+
 
         System.out.println("Update: " + insert.getGeneratedSql());
         Transaction tx = Ebean.beginTransaction();
@@ -102,7 +100,7 @@ public class NewPersonModel extends Model {
                     "WHERE P.LicenceNumber = :licenceNumber";
 
             RawSql rawSql = RawSqlBuilder.parse(sql)
-                    .columnMapping("P.idNewPerson", "idPersonaFK")
+                    .columnMapping("P.idNewPerson", "idNewPerson")
                     .columnMapping("P.Name", "name")
                     .columnMapping("P.Gender", "gender")
                     .columnMapping("P.LicenseType", "licenseType")
@@ -163,6 +161,55 @@ public class NewPersonModel extends Model {
             result = 0;
         }
         return result;
+    }
+
+    public List<NewPersonModel> ListNewPersonByIdAccident(String accidentId){
+
+        Transaction t = Ebean.beginTransaction();
+        List<NewPersonModel> listNewPerson = new ArrayList<>();
+        try {
+            String sql = "SELECT  n.Name, n.Gender, n.LicenseType, n.LicenceNumber, n.OrganDonor, n.ExpirationDate, n.Neighborhood, n.StreetName, n.City, n.StateCountry, n.ZipCode, n.PhoneNumber, b.Person_fk, b.Accident_fk " +
+                    "FROM AccidentPerson b, NewPerson n, Accident a " +
+                    "WHERE b.Accident_fk = a.idCrashBasicInformation AND " +
+                    "b.Person_fk = n.idNewPerson " +
+                    "AND a.idCrashBasicInformation =" + accidentId;
+
+            RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("n.Name", "name")
+                    .columnMapping("n.Gender", "gender")
+                    .columnMapping("n.LicenseType", "licenseType")
+                    .columnMapping("n.LicenceNumber", "licenceNumber")
+                    .columnMapping("n.OrganDonor", "organDonor")
+                    .columnMapping("n.ExpirationDate", "expirationDate")
+                    .columnMapping("n.Neighborhood", "neighborhood")
+                    .columnMapping("n.StreetName", "streetName")
+                    .columnMapping("n.City", "city")
+                    .columnMapping("n.StateCountry", "stateCountry")
+                    .columnMapping("n.ZipCode", "zipCode")
+                    .columnMapping("n.PhoneNumber", "phoneNumber")
+                    .columnMapping("b.Person_fk", "idNewPerson")
+                    .columnMapping("b.Accident_fk", "accidenteFK")
+                   // .columnMapping("n.idNewPerson", "idNarrative")
+
+                    .create();
+
+            Query<NewPersonModel> query = Ebean.find(NewPersonModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("AccidenteFK", accidentId);
+            listNewPerson = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listNewPerson;
+
     }
 
 

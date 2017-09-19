@@ -18,6 +18,10 @@ public class NarrativaModel extends Model {
     public String timeOfArrivalPolice;
     public String notifiedTimeEmergencie;
     public String timeOfArrivalEmergencie;
+    public int narrativaFK;
+    public int accidenteFK;
+
+
 
     public String details;
     @Id
@@ -115,16 +119,16 @@ public class NarrativaModel extends Model {
         return result;
     }
 
-    public List<NarrativaModel> ListNarrativaByIdAccident(String accidentfk){
+    public List<NarrativaModel> ListNarrativaByIdAccident(String idCrashBasicInformation){
 
         Transaction t = Ebean.beginTransaction();
         List<NarrativaModel> listCondition = new ArrayList<>();
         try {
-            String sql = "SELECT  n.NotifiedTimePolice, n.TimeOfArrivalPolice, n.NotifiedTimeEmergencie, n.TimeOfArrivalEmergencie, n.Details " +
+            String sql = "SELECT  n.NotifiedTimePolice, n.TimeOfArrivalPolice, n.NotifiedTimeEmergencie, n.TimeOfArrivalEmergencie, n.Details,b.NarrativaFK, b.AccidenteFK, n.idNarrative " +
                     "FROM AccidentNarrativa b, Narrative n, Accident a " +
                     "WHERE b.AccidenteFK = a.idCrashBasicInformation AND " +
-                    "b.idAccidentNarrativa = n.idNarrative " +
-                    "AND a.idCrashBasicInformation = 5";
+                    "b.NarrativaFK = n.idNarrative " +
+                    "AND a.idCrashBasicInformation =" + idCrashBasicInformation;
 
             RawSql rawSql = RawSqlBuilder.parse(sql)
                     .columnMapping("n.NotifiedTimePolice", "notifiedTimePolice")
@@ -132,12 +136,14 @@ public class NarrativaModel extends Model {
                     .columnMapping("n.NotifiedTimeEmergencie", "notifiedTimeEmergencie")
                     .columnMapping("n.TimeOfArrivalEmergencie", "timeOfArrivalEmergencie")
                     .columnMapping("n.Details", "details")
-
+                    .columnMapping("b.NarrativaFK", "narrativaFK")
+                    .columnMapping("b.AccidenteFK", "accidenteFK")
+                    .columnMapping("n.idNarrative", "idNarrative")
                     .create();
 
             Query<NarrativaModel> query = Ebean.find(NarrativaModel.class);
             query.setRawSql(rawSql)
-                    .setParameter("AccidenteFK", accidentfk);
+                    .setParameter("AccidenteFK", idCrashBasicInformation);
             listCondition = query.findList();
             t.commit();
 

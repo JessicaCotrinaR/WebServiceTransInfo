@@ -85,4 +85,22 @@ public class NewPerson extends Controller {
         }
     }
 
+    public Result ListNewPersonByIdAccident(String accidenfk){
+
+        NewPersonModel p = new NewPersonModel();
+        List<NewPersonModel> reportC = p.ListNewPersonByIdAccident(accidenfk);
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        if(reportC != null) {
+            msg.set("ReportList", toJson(reportC));
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("error", "There are no list report");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
+
 }

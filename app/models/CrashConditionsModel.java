@@ -166,7 +166,7 @@ public class CrashConditionsModel extends Model {
                     "FROM AccidentCondition b, CrashConditions c, Accident a " +
                     "WHERE b.AccidenteFK = a.idCrashBasicInformation AND " +
                     "b.CrashConditionFK = c.idCrashConditions " +
-                    "AND a.idCrashBasicInformation = 87";
+                    "AND a.idCrashBasicInformation =" +accidenteFK;
 
             RawSql rawSql = RawSqlBuilder.parse(sql)
                     .columnMapping("c.CollisionTypeDescriptionES", "collisionTypeDescriptionES")
