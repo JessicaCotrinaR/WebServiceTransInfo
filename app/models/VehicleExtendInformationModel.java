@@ -1,8 +1,6 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Model;
-import com.avaje.ebean.SqlUpdate;
+import com.avaje.ebean.*;
 
 /**
  * Created by jessicacotrina on 4/6/17.
@@ -58,8 +56,8 @@ public class VehicleExtendInformationModel extends Model {
 
     public VehicleExtendInformationModel() {
     }
-    public int addVehicleExtendInformationModel(VehicleExtendInformationModel vehicleExtendInformationModel) {
-        int result;
+    public long addVehicleExtendInformationModel(VehicleExtendInformationModel vehicleExtendInformationModel) {
+        long result;
         String sql = "INSERT INTO  VehicleExtendInformation (VehicleType, Occupants, VehicleMotor, DirectionTripCB, FunctionSpecialMVT," +
                 "MotorEmergencyVU, MPH, MPHDescription,ManeuverVehicleMotor, DescriptionRoad, Alignment, Slope, LaneCantidad," +
                 " LaneCategoria, LaneTipoCarril, TypeControlTraffic, InOperationLost, PrimeraCategoriaEvent, SegundaCategoriaEvent, " +
@@ -126,11 +124,30 @@ public class VehicleExtendInformationModel extends Model {
 
 
         System.out.println("Update: " + insert.getSql());
+        Transaction tx = Ebean.beginTransaction();
+        boolean success= true;
+
         try {
             result = insert.execute();
+            String sqlgetId = "SELECT @@IDENTITY as theId";
+            SqlRow id = Ebean.createSqlQuery(sqlgetId)
+                    .findUnique();
+            result = id.getLong("theId");
+            System.out.println("Resulting Id: " + result);
+
+
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;
+            success= false;
+        }
+        finally {
+            if(success){
+                tx.commit();
+            }
+            else {
+                tx.rollback();
+            }
         }
         return result;
     }
@@ -199,7 +216,8 @@ public class VehicleExtendInformationModel extends Model {
 
 
         try {
-            result = update.execute();
+            update.execute();
+            result = idVehicleExtendInformation;
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;

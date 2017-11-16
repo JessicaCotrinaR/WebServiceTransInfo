@@ -49,13 +49,9 @@ public class CrashConditions extends Controller {
     public Result CrashConditionsUpdate(){
 
         CrashConditionsModel crashConditionsM =  formFactory.form(CrashConditionsModel.class).bindFromRequest().get();
-        //System.out.println("goHHHHOLLLALDJDDNNFNNFN" + crashBasicInformation);
-        //crashBasicInformation.idCrashBasicInformation = Integer.valueOf(session().get("idCrashBasicInformation"));
-
-
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
-        long result = crashConditionsM.updateCrashConditions(crashConditionsM);
+        int result = crashConditionsM.updateCrashConditions(crashConditionsM);
 
         if(result > 0){
             msg.put("message","updated sucessfully");

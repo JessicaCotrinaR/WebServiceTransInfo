@@ -43,6 +43,7 @@ create table list_report_model (
   licence_number                varchar(255),
   plate_number                  varchar(255),
   make                          varchar(255),
+  case_number                   varchar(255),
   modelo                        varchar(255)
 );
 

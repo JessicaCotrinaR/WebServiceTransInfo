@@ -74,8 +74,9 @@ public class NewPerson extends Controller {
         ObjectNode msg = Json.newObject();
         int result = newPersonM.updatePersonModel(newPersonM);
 
-        if(result == 1){
+        if(result > 0){
             msg.put("message","updated sucessfully");
+            msg.put("NewPersonId", result);
             wrapper.set("success", msg);
             return ok(wrapper);
         }else{

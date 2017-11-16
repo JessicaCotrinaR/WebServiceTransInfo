@@ -155,7 +155,8 @@ public class NewPersonModel extends Model {
         update.setParameter("idNewPerson", newPersonModel.idNewPerson);
 
         try {
-            result = update.execute();
+            update.execute();
+            result = idNewPerson;
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;

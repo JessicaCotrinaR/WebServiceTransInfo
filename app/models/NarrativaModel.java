@@ -71,9 +71,9 @@ public class NarrativaModel extends Model {
         return result;
     }
 
-    public long updateNarrativa(NarrativaModel narrativaModel) {
+    public int updateNarrativa(NarrativaModel narrativaModel) {
 
-        long result;
+        int result;
         String sql = "UPDATE Narrative SET NotifiedTimePolice = :NotifiedTimePolice, TimeOfArrivalPolice = :TimeOfArrivalPolice, NotifiedTimeEmergencie = :NotifiedTimeEmergencie, TimeOfArrivalEmergencie = :TimeOfArrivalEmergencie, Details = :Details WHERE idNarrative = :idNarrative ";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
@@ -89,32 +89,12 @@ public class NarrativaModel extends Model {
 
         update.setParameter("idNarrative", narrativaModel.idNarrative);
 
-        System.out.println("Update: " + update.getSql());
-        Transaction tx = Ebean.beginTransaction();
-        boolean success= true;
-
-        // update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
         try {
-            result = update.execute();
-            String sqlgetId = "SELECT @@IDENTITY as theId";
-            SqlRow id = Ebean.createSqlQuery(sqlgetId)
-                    .findUnique();
-            result = id.getLong("theId");
-            System.out.println("Resulting Id: " + result);
-
-
+            update.execute();
+            result = idNarrative;
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;
-            success= false;
-        }
-        finally {
-            if(success){
-                tx.commit();
-            }
-            else {
-                tx.rollback();
-            }
         }
         return result;
     }

@@ -23,9 +23,10 @@ public class PersonExtendInformation extends Controller {
             personExtendInformationModel = formFactory.form(PersonExtendInformationModel.class).bindFromRequest().get();
             ObjectNode result = Json.newObject();
             ObjectNode wrapper = Json.newObject();
-            int operation = personExtendInformationModel.addPersonExtendInformationModel(personExtendInformationModel);
-            if(operation == 1){
+            long operation = personExtendInformationModel.addPersonExtendInformationModel(personExtendInformationModel);
+            if(operation > 0){
                 result.put("message", "Agregado con éxito");
+                result.put("IdPersonExtendInformation", operation);
                 wrapper.set("success", result);
                 return ok(wrapper);
             }else{
@@ -52,8 +53,9 @@ public class PersonExtendInformation extends Controller {
         ObjectNode msg = Json.newObject();
         int result = personExtendInformationUpdate.updatePersonExtendInformationModel(personExtendInformationUpdate);
 
-        if(result == 1){
+        if(result > 0){
             msg.put("message","updated sucessfully");
+            msg.put("IdNewPersonExtend", result);
             wrapper.set("success", msg);
             return ok(wrapper);
         }else{
@@ -62,5 +64,4 @@ public class PersonExtendInformation extends Controller {
             return badRequest(wrapper);
         }
     }
-
 }

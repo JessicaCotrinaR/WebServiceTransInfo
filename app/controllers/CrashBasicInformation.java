@@ -51,17 +51,19 @@ public class CrashBasicInformation extends Controller {
 
         CrashBasicInformationModel crashBasicInformation =  formFactory.form(CrashBasicInformationModel.class).bindFromRequest().get();
         //System.out.println("goHHHHOLLLALDJDDNNFNNFN" + crashBasicInformation);
-        //crashBasicInformation.idCrashBasicInformation = Integer.valueOf(session().get("idCrashBasicInformation"));
+       // crashBasicInformation.idCrashBasicInformation = Integer.valueOf(session().get("idCrashBasicInformation"));
 
 
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
-        long result = crashBasicInformation.updateCrashBasicInformation(crashBasicInformation);
+        //long result = crashBasicInformation.updateCrashBasicInformation(crashBasicInformation);
 
+        long result = crashBasicInformation.updateCrashBasicInformation(crashBasicInformation);
         if(result > 0 ){
             msg.put("message","updated sucessfully");
-            wrapper.set("success", msg);
             msg.put("AccidentId", result);
+
+            wrapper.set("success", msg);
 
 
             return ok(wrapper);

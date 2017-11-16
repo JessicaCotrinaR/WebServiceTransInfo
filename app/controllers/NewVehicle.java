@@ -69,17 +69,14 @@ public class NewVehicle extends Controller {
 
     public Result NewVehicleUpdate(){
 
-        NewVehicleModel newVehicleUpdate = new NewVehicleModel();
-
-        newVehicleUpdate = formFactory.form(NewVehicleModel.class).bindFromRequest().get();
-        //editNarrativa.idnarrative = Integer.valueOf(session().get("idNarrative"));
-
+        NewVehicleModel newVehicleM =  formFactory.form(NewVehicleModel.class).bindFromRequest().get();
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
-        int result = newVehicleUpdate.updateVehicleModel(newVehicleUpdate);
+        int result = newVehicleM.updateVehicleModel(newVehicleM);
 
-        if(result == 1){
+        if(result > 0){
             msg.put("message","updated sucessfully");
+            msg.put("NewVehicleId", result);
             wrapper.set("success", msg);
             return ok(wrapper);
         }else{

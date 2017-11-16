@@ -24,14 +24,17 @@ public class ListReportModel extends Model {
     public String licenceNumber;
     public String plateNumber;
     public String make;
+    public String CaseNumber;
+    public String CountryDescriptionES;
     public String modelo;
+
 
     public List<ListReportModel> searchByDateReporAccident(String plateNumber){
 
         Transaction t = Ebean.beginTransaction();
         List<ListReportModel> report = new ArrayList<>();
         try {
-            String sql = "SELECT a.CrashType, a.CrashDate, a.Hour, a.Address, a.CountryDescriptionES, " +
+            String sql = "SELECT a.CrashType, a.CaseNumber, a.CountryDescriptionES, a.CrashDate, a.Hour, a.Address, a.CountryDescriptionES, " +
                     "o.FirstName, o.LastName, p.Name, p.LicenseType, p.LicenceNumber, v.PlateNumber, v.Make, v.modelos "+
 
                     "FROM Accident a, Officer o, AccidentPerson ap, NewPerson p, NewVehicle v " +
@@ -43,6 +46,8 @@ public class ListReportModel extends Model {
 
             RawSql rawSql = RawSqlBuilder.parse(sql)
                     .columnMapping("a.CrashType", "crashType")
+                    .columnMapping("a.CaseNumber", "CaseNumber")
+                    .columnMapping("a.CountryDescriptionES", "CountryDescriptionES")
                     .columnMapping("a.CrashDate", "crashDate")
                     .columnMapping("a.Hour", "hour")
                     .columnMapping("a.Address", "address")

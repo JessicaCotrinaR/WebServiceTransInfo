@@ -150,11 +150,11 @@ public class NewVehicleModel extends Model {
         update.setParameter("PurchaseDate", newVehicleModel.purchaseDate);
         update.setParameter("ExpirationDate", newVehicleModel.expirationDate);
         update.setParameter("idPersonaFK", newVehicleModel.idPersonaFK);
-
         update.setParameter("idNewVehicle", newVehicleModel.idNewVehicle);
 
         try {
-            result = update.execute();
+            update.execute();
+            result = idNewVehicle;
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;

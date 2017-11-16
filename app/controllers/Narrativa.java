@@ -55,13 +55,11 @@ public class Narrativa extends Controller {
 
         ObjectNode wrapper = Json.newObject();
         ObjectNode msg = Json.newObject();
-        long result = editNarrativa.updateNarrativa(editNarrativa);
-        System.out.println("ya"+result);
+        int result = editNarrativa.updateNarrativa(editNarrativa);
         if(result > 0){
             msg.put("message","updated sucessfully");
+            msg.put("IdNarrativa", result);
             wrapper.set("success", msg);
-            msg.put("NarrativaId", result);
-
             return ok(wrapper);
         }else{
             msg.put("message","can not update");

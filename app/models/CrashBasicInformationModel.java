@@ -106,7 +106,7 @@ public class CrashBasicInformationModel extends Model {
         System.out.println(sql);
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
-        update.setParameter("CrashType",  crashBasicInformationModel.crashType);
+        update.setParameter("CrashType", crashBasicInformationModel.crashType);
         update.setParameter("CaseNumber", crashBasicInformationModel.caseNumber);
         update.setParameter("CrashDate", crashBasicInformationModel.crashDate);
         update.setParameter("Hour", crashBasicInformationModel.hour);
@@ -133,34 +133,45 @@ public class CrashBasicInformationModel extends Model {
 
 
         System.out.println("Update: " + update.getSql());
-        Transaction tx = Ebean.beginTransaction();
-        boolean success= true;
+
 
         try {
-            result = update.execute();
-            String sqlgetId = "SELECT @@IDENTITY as theId";
-            SqlRow id = Ebean.createSqlQuery(sqlgetId)
-                    .findUnique();
-            result = id.getLong("theId");
-            System.out.println("Resulting Id: " + result);
-
-
-        }catch (Exception e){
+            update.execute();
+            result = idCrashBasicInformation;
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             result = 0;
-            success= false;
-        }
-        finally {
-            if(success){
-                tx.commit();
-            }
-            else {
-                tx.rollback();
-            }
-
         }
         return result;
     }
+//        Transaction tx = Ebean.beginTransaction();
+//        boolean success= true;
+
+//        try {
+//            result = update.execute();
+//            String sqlgetId = "SELECT @@IDENTITY as theId";
+//            SqlRow id = Ebean.createSqlQuery(sqlgetId)
+//                    .findUnique();
+//            result = id.getLong("theId");
+//            System.out.println("idCrashBasicInformation: " + result);
+//
+//
+//        }catch (Exception e){
+//            System.out.println(e.getMessage());
+//            result = 0;
+//            success= false;
+//        }
+//        finally {
+//            if(success){
+//                tx.commit();
+//            }
+//            else {
+//                tx.rollback();
+//            }
+//
+//        }
+//        return result;
+//    }
 
     public List<CrashBasicInformationModel> searchByCaseNumber(String caseNumber){
 

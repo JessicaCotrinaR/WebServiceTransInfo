@@ -1,8 +1,6 @@
 package models;
 
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Model;
-import com.avaje.ebean.SqlUpdate;
+import com.avaje.ebean.*;
 
 /**
  * Created by jessicacotrina on 4/4/17.
@@ -21,7 +19,6 @@ public class PersonExtendInformationModel extends Model {
     public String speedRelated;
     public String extraction;
     public String distractedBy;
-    public String drivercirncunstance;
     public String driverCirncunstanceBC;
     public String conditionCollisionTime;
     public String safetyEquipmentUsed;
@@ -31,7 +28,7 @@ public class PersonExtendInformationModel extends Model {
     public String testResultAl;
     public String testResultTP;
     public String suscpectControlledSubstances;
-//    public String personExtendInformationcol;
+    public String distractedDriberBY;
     public String testStatusSub;
     public String testTypeSub;
     public String testResultSub;
@@ -43,17 +40,17 @@ public class PersonExtendInformationModel extends Model {
     public String transportedTo;
     public String transportedBy;
     public String medicalEmergenciesNumber;
-    public String idPersonExtendInformation;
+    public int idPersonExtendInformation;
 
     public int ambulanceCSPNumber;
 
     public PersonExtendInformationModel() {
     }
-    public int addPersonExtendInformationModel(PersonExtendInformationModel personExtendInformationModel){
-        int result;
+    public long addPersonExtendInformationModel(PersonExtendInformationModel personExtendInformationModel){
+        long result;
 
         String sql = "INSERT INTO PersonExtendInformation (PersonaFK, CategoryPerson, TypePerson, Row, Seat, OtherLocation," +
-                "RestraintSystem,AirbagsActivation, Expulsion, SpeedRelated, Extraction,  DriverCirncunstanceBC, DistractedDriverBy, DistractedBy, ConditionCollisionTime, " +
+                "RestraintSystem, AirbagsActivation, Expulsion, SpeedRelated, Extraction,  DriverCirncunstanceBC, DistractedDriverBy, DistractedBy, ConditionCollisionTime, " +
                 "SafetyEquipmentUsed, SuspectAlcoholUse, TestStatusAl, TestTypeAl, TestResultAl, TestResultTP, SuscpectControlledSubstances," +
                 " TestStatusSub, TestTypeSub, TestResultSub, ActionsBeforeCollision, InWayToSchool, ActionsAtCollisionTime, " +
                 " LocationWhenCollision, TransportedByME, TransportedTo, TransportedBy, MedicalEmergenciesNumber, AmbulanceCSPNumber ) " +
@@ -78,7 +75,7 @@ public class PersonExtendInformationModel extends Model {
         insert.setParameter("SpeedRelated", personExtendInformationModel.speedRelated);
         insert.setParameter("Extraction", personExtendInformationModel.extraction);
         insert.setParameter("DriverCirncunstanceBC", personExtendInformationModel.driverCirncunstanceBC);
-        insert.setParameter("DistractedDriverBy", personExtendInformationModel.drivercirncunstance);
+        insert.setParameter("DistractedDriverBy", personExtendInformationModel.distractedDriberBY);
         insert.setParameter("DistractedBy", personExtendInformationModel.distractedBy);
         insert.setParameter("ConditionCollisionTime", personExtendInformationModel.conditionCollisionTime);
         insert.setParameter("SafetyEquipmentUsed", personExtendInformationModel.safetyEquipmentUsed);
@@ -102,11 +99,30 @@ public class PersonExtendInformationModel extends Model {
         insert.setParameter("AmbulanceCSPNumber", personExtendInformationModel.ambulanceCSPNumber);
 
         System.out.println("Update: " + insert.getSql());
+        Transaction tx = Ebean.beginTransaction();
+        boolean success= true;
+
         try {
             result = insert.execute();
+            String sqlgetId = "SELECT @@IDENTITY as theId";
+            SqlRow id = Ebean.createSqlQuery(sqlgetId)
+                    .findUnique();
+            result = id.getLong("theId");
+            System.out.println("Resulting Id: " + result);
+
+
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;
+            success= false;
+        }
+        finally {
+            if(success){
+                tx.commit();
+            }
+            else {
+                tx.rollback();
+            }
         }
         return result;
     }
@@ -133,7 +149,7 @@ public class PersonExtendInformationModel extends Model {
         update.setParameter("SpeedRelated", personExtendInformationModel.speedRelated);
         update.setParameter("Extraction", personExtendInformationModel.extraction);
         update.setParameter("DriverCirncunstanceBC", personExtendInformationModel.driverCirncunstanceBC);
-        update.setParameter("DistractedDriverBy", personExtendInformationModel.drivercirncunstance);
+        update.setParameter("DistractedDriverBy", personExtendInformationModel.distractedDriberBY);
         update.setParameter("DistractedBy", personExtendInformationModel.distractedBy);
         update.setParameter("ConditionCollisionTime", personExtendInformationModel.conditionCollisionTime);
         update.setParameter("SafetyEquipmentUsed", personExtendInformationModel.safetyEquipmentUsed);
@@ -155,11 +171,12 @@ public class PersonExtendInformationModel extends Model {
         update.setParameter("TransportedBy", personExtendInformationModel.transportedBy);
         update.setParameter("MedicalEmergenciesNumber", personExtendInformationModel.medicalEmergenciesNumber);
         update.setParameter("AmbulanceCSPNumber", personExtendInformationModel.ambulanceCSPNumber);
-
         update.setParameter("idPersonExtendInformation", personExtendInformationModel.idPersonExtendInformation);
 
+
         try {
-            result = update.execute();
+            update.execute();
+            result = idPersonExtendInformation;
         }catch (Exception e){
             System.out.println(e.getMessage());
             result = 0;

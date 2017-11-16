@@ -23,9 +23,10 @@ public class VehicleExtend  extends Controller{
             vehicleExtendInformationModel = formFactory.form(VehicleExtendInformationModel.class).bindFromRequest().get();
             ObjectNode result = Json.newObject();
             ObjectNode wrapper = Json.newObject();
-            int operation = vehicleExtendInformationModel.addVehicleExtendInformationModel(vehicleExtendInformationModel);
-            if(operation == 1){
+            long operation = vehicleExtendInformationModel.addVehicleExtendInformationModel(vehicleExtendInformationModel);
+            if(operation > 0){
                 result.put("message", "Agregado con éxito");
+                result.put("IdVehicleExtend", operation);
                 wrapper.set("success", result);
                 return ok(wrapper);
             }else{
@@ -51,8 +52,9 @@ public class VehicleExtend  extends Controller{
         ObjectNode msg = Json.newObject();
         int result = vehicleExtendInformationM.updateVehicleExtendInformationModel(vehicleExtendInformationM);
 
-        if(result == 1){
+        if(result > 0){
             msg.put("message","updated sucessfully");
+            msg.put("IdVehicleExtend", result);
             wrapper.set("success", msg);
             return ok(wrapper);
         }else{

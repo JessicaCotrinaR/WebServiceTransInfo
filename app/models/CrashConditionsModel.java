@@ -33,7 +33,7 @@ public class CrashConditionsModel extends Model {
     public String workerPresent;
     public String policePresent;
     public int crashConditionFK;
-    public String idCrashConditions;
+    public int idCrashConditions;
     public String accidenteFK;
 
     public CrashConditionsModel() {
@@ -98,8 +98,8 @@ public class CrashConditionsModel extends Model {
         return result;
     }
 
-    public long updateCrashConditions(CrashConditionsModel crashConditionsModel) {
-        long result;
+    public int updateCrashConditions(CrashConditionsModel crashConditionsModel) {
+        int result;
         String sql = "UPDATE CrashConditions SET CollisionTypeDescriptionES = :CollisionTypeDescriptionES, EventDescriptionES = :EventDescriptionES, EventLocationDescriptionES = :EventLocationDescriptionES, MannerofColisionDescriptionES = :MannerofColisionDescriptionES, WeatherConditionUno = :WeatherConditionUno, WeatherConditionDos = :WeatherConditionDos, VisibilityCondition = :VisibilityCondition, PavementCondition = :PavementCondition, Environmental = :Environmental, RoadDescription = :RoadDescription, WithinInterchange = :WithinInterchange, SpecifLocation = :SpecifLocation, InserctionType = :InserctionType, SchoolBusRelated = :SchoolBusRelated, NearConstruction = :NearConstruction, CrashLocation = :CrashLocation, WorkerZoneType = :WorkerZoneType, WorkerPresent = :WorkerPresent, PolicePresent = :PolicePresent " +
                 "WHERE idCrashConditions = :idCrashConditions";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
@@ -126,32 +126,12 @@ public class CrashConditionsModel extends Model {
 
         update.setParameter("idCrashConditions", crashConditionsModel.idCrashConditions);
 
-        System.out.println("Update: " + update.getSql());
-        Transaction tx = Ebean.beginTransaction();
-        boolean success= true;
-
         try {
-            result = update.execute();
-            String sqlgetId = "SELECT @@IDENTITY as theId";
-            SqlRow id = Ebean.createSqlQuery(sqlgetId)
-                    .findUnique();
-            result = id.getLong("theId");
-            System.out.println("Resulting Id: " + result);
-
-
-        }catch (Exception e){
+            update.execute();
+            result = idCrashConditions;
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             result = 0;
-            success= false;
-        }
-        finally {
-            if(success){
-                tx.commit();
-            }
-            else {
-                tx.rollback();
-            }
-
         }
         return result;
     }
