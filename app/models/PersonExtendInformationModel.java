@@ -28,7 +28,7 @@ public class PersonExtendInformationModel extends Model {
     public String testResultAl;
     public String testResultTP;
     public String suscpectControlledSubstances;
-    public String distractedDriberBY;
+    public String distractedDriverBy;
     public String testStatusSub;
     public String testTypeSub;
     public String testResultSub;
@@ -75,7 +75,7 @@ public class PersonExtendInformationModel extends Model {
         insert.setParameter("SpeedRelated", personExtendInformationModel.speedRelated);
         insert.setParameter("Extraction", personExtendInformationModel.extraction);
         insert.setParameter("DriverCirncunstanceBC", personExtendInformationModel.driverCirncunstanceBC);
-        insert.setParameter("DistractedDriverBy", personExtendInformationModel.distractedDriberBY);
+        insert.setParameter("DistractedDriverBy", personExtendInformationModel.distractedDriverBy);
         insert.setParameter("DistractedBy", personExtendInformationModel.distractedBy);
         insert.setParameter("ConditionCollisionTime", personExtendInformationModel.conditionCollisionTime);
         insert.setParameter("SafetyEquipmentUsed", personExtendInformationModel.safetyEquipmentUsed);
@@ -129,12 +129,12 @@ public class PersonExtendInformationModel extends Model {
 
     public int updatePersonExtendInformationModel(PersonExtendInformationModel personExtendInformationModel) {
         int result;
-        String sql = "UPDATE PersonExtendInformation SET PersonaFK = :PersonaFK, CategoryPerson = :CategoryPerson, TypePerson = :TypePerson, Row = :Row, Seat = :Seat, OtherLocation = :OtherLocation," +
-                "RestraintSystem = :RestraintSystem, AirbagsActivation = :AirbagsActivation, Expulsion = :Expulsion, SpeedRelated = :SpeedRelated, Extraction = :Extraction,  DriverCirncunstanceBC = :DriverCirncunstanceBC, DistractedDriverBy = :DistractedDriverBy, DistractedBy = :DistractedBy, ConditionCollisionTime = :ConditionCollisionTime," +
-                "SafetyEquipmentUsed = :SafetyEquipmentUsed, SuspectAlcoholUse = :SuspectAlcoholUse, TestStatusAl = :TestStatusAl, TestTypeAl = :TestTypeAl, TestResultAl = :TestResultAl, TestResultTP = :TestResultTP, SuscpectControlledSubstances = :SuscpectControlledSubstances," +
-                " TestStatusSub = :TestStatusSub, TestTypeSub = :TestTypeSub, TestResultSub = :TestResultSub, ActionsBeforeCollision = :ActionsBeforeCollision, InWayToSchool = :InWayToSchool, ActionsAtCollisionTime = :ActionsAtCollisionTime," +
-                " LocationWhenCollision = :LocationWhenCollision, TransportedByME = :TransportedByME, TransportedTo = :TransportedTo, TransportedBy = :TransportedBy, MedicalEmergenciesNumber = :MedicalEmergenciesNumber, AmbulanceCSPNumber = :AmbulanceCSPNumber" +
-                "WHERE idPersonExtendInformation = :idPersonExtendInformation";
+        String sql = "UPDATE PersonExtendInformation SET PersonaFK = :PersonaFK, CategoryPerson = :CategoryPerson, TypePerson = :TypePerson, Row = :Row, Seat = :Seat, OtherLocation = :OtherLocation, " +
+                "RestraintSystem = :RestraintSystem, AirbagsActivation = :AirbagsActivation, Expulsion = :Expulsion, SpeedRelated = :SpeedRelated, Extraction = :Extraction,  DriverCirncunstanceBC = :DriverCirncunstanceBC, DistractedDriverBy = :DistractedDriverBy, DistractedBy = :DistractedBy, ConditionCollisionTime = :ConditionCollisionTime, " +
+                "SafetyEquipmentUsed = :SafetyEquipmentUsed, SuspectAlcoholUse = :SuspectAlcoholUse, TestStatusAl = :TestStatusAl, TestTypeAl = :TestTypeAl, TestResultAl = :TestResultAl, TestResultTP = :TestResultTP, SuscpectControlledSubstances = :SuscpectControlledSubstances, " +
+                " TestStatusSub = :TestStatusSub, TestTypeSub = :TestTypeSub, TestResultSub = :TestResultSub, ActionsBeforeCollision = :ActionsBeforeCollision, InWayToSchool = :InWayToSchool, ActionsAtCollisionTime = :ActionsAtCollisionTime, " +
+                " LocationWhenCollision = :LocationWhenCollision, TransportedByME = :TransportedByME, TransportedTo = :TransportedTo, TransportedBy = :TransportedBy, MedicalEmergenciesNumber = :MedicalEmergenciesNumber, AmbulanceCSPNumber = :AmbulanceCSPNumber " +
+                "WHERE idPersonExtendInformation = :idPersonExtendInformation ";
         SqlUpdate update = Ebean.createSqlUpdate(sql);
 
         update.setParameter("PersonaFK",  personExtendInformationModel.personaFK);
@@ -149,7 +149,7 @@ public class PersonExtendInformationModel extends Model {
         update.setParameter("SpeedRelated", personExtendInformationModel.speedRelated);
         update.setParameter("Extraction", personExtendInformationModel.extraction);
         update.setParameter("DriverCirncunstanceBC", personExtendInformationModel.driverCirncunstanceBC);
-        update.setParameter("DistractedDriverBy", personExtendInformationModel.distractedDriberBY);
+        update.setParameter("DistractedDriverBy", personExtendInformationModel.distractedDriverBy);
         update.setParameter("DistractedBy", personExtendInformationModel.distractedBy);
         update.setParameter("ConditionCollisionTime", personExtendInformationModel.conditionCollisionTime);
         update.setParameter("SafetyEquipmentUsed", personExtendInformationModel.safetyEquipmentUsed);
