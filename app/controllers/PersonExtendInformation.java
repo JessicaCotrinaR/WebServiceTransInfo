@@ -8,6 +8,10 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.List;
+
+import static play.libs.Json.toJson;
+
 /**
  * Created by jessicacotrina on 4/5/17.
  */
@@ -60,6 +64,23 @@ public class PersonExtendInformation extends Controller {
             return ok(wrapper);
         }else{
             msg.put("message","can not update");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
+    public Result ListPersonExtendByIdPerson(String personId){
+
+        PersonExtendInformationModel p = new PersonExtendInformationModel();
+        List<PersonExtendInformationModel> reportC = p.PersonExtendInformationByIdAccident(personId);
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        if(reportC != null) {
+            msg.set("ReportList", toJson(reportC));
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("error", "There are no list report");
             wrapper.set("error", msg);
             return badRequest(wrapper);
         }

@@ -2,9 +2,14 @@ package models;
 
 import com.avaje.ebean.*;
 
+import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by jessicacotrina on 4/6/17.
  */
+@Entity
 public class VehicleExtendInformationModel extends Model {
     public String vehicleType;
     public String occupants;
@@ -223,5 +228,92 @@ public class VehicleExtendInformationModel extends Model {
             result = 0;
         }
         return result;
+    }
+
+    public List<VehicleExtendInformationModel> vehicleExtendInformationByIdNewVehicle(String newVehicleId){
+
+        Transaction t = Ebean.beginTransaction();
+        List<VehicleExtendInformationModel> listVehicleExtendInformation = new ArrayList<>();
+        try {
+            String sql = "SELECT  n.VehicleType, n.Occupants, n.VehicleMotor, n.DirectionTripCB, n.FunctionSpecialMVT," +
+                    "n.MotorEmergencyVU, n.MPH, n.MPHDescription, n.ManeuverVehicleMotor, n.DescriptionRoad, n.Alignment, n.Slope, n.LaneCantidad," +
+                    " n.LaneCategoria, n.LaneTipoCarril, n.TypeControlTraffic, n.InOperationLost, n.PrimeraCategoriaEvent, n.SegundaCategoriaEvent, " +
+                    " n.TerceraCategoriaEvent, n.CuartaCategoria, n.PrimerEvent, n.SegundoEvent, n.TecerEvent, n.CuartoEvent, n.BusUse, n.LefthPlace," +
+                    "n.TowedDamage, n.PrimerDefectoMecánico, n.SegundoDefectoMecánico, n.InitialContactPoint, n.AffectedArea, n.ExtendDamage, n.CommercialVehicleUse," +
+                    " n.VehicleMoving, n.AuthorizedDriver, n.InspectionUpdate, n.SpecialPermit, n.GrossWeight, n.TotalAxis, n.VehicleConfiguration," +
+                    " n.HeavyVehicleType, n.HazardousMaterial, n.DiamondIdNumber, n.ThereHazardousMaterial, n.VehicleFK, n.idVehicleExtendInformation " +
+
+
+                    "FROM NewVehicle b, VehicleExtendInformation n " +
+                    "WHERE b.idNewVehicle = n.VehicleFK AND " +
+                    "b.idNewVehicle =" + newVehicleId;
+
+                    RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("n.VehicleType",  "vehicleType")
+                    .columnMapping("n.Occupants", "occupants")
+                    .columnMapping("n.VehicleMotor", "vehicleMotor")
+                    .columnMapping("n.DirectionTripCB", "directionTripCB")
+                    .columnMapping("n.FunctionSpecialMVT", "functionSpecialMVT")
+                    .columnMapping("n.MotorEmergencyVU", "motorEmergencyVU")
+                    .columnMapping("n.MPH", "mPH")
+                    .columnMapping("n.MPHDescription", "mPHDescription")
+                    .columnMapping("n.ManeuverVehicleMotor", "maneuverVehicleMotor")
+                    .columnMapping("n.DescriptionRoad", "descriptionRoad")
+                    .columnMapping("n.Alignment", "alignment")
+                    .columnMapping("n.Slope", "slope")
+                    .columnMapping("n.LaneCantidad", "laneCantidad")
+                    .columnMapping("n.LaneCategoria", "laneCategoria")
+                    .columnMapping("n.LaneTipoCarril", "laneTipoCarril")
+                    .columnMapping("n.TypeControlTraffic", "typeControlTraffic")
+                    .columnMapping("n.InOperationLost", "inOperationLost")
+                    .columnMapping("n.PrimeraCategoriaEvent", "primeraCategoriaEvent")
+                    .columnMapping("n.SegundaCategoriaEvent", "segundaCategoriaEvent")
+                    .columnMapping("n.TerceraCategoriaEvent", "terceraCategoriaEvent")
+                    .columnMapping("n.CuartaCategoria", "cuartaCategoria")
+                    .columnMapping("n.PrimerEvent", "primerEvent")
+                    .columnMapping("n.SegundoEvent", "segundoEvent")
+                    .columnMapping("n.TecerEvent", "tecerEvent")
+                    .columnMapping("n.CuartoEvent", "cuartoEvent")
+                    .columnMapping("n.BusUse", "busUse")
+                    .columnMapping("n.LefthPlace", "lefthPlace")
+                    .columnMapping("n.TowedDamage", "towedDamage")
+                    .columnMapping("n.PrimerDefectoMecánico", "primerDefectoMecánico")
+                    .columnMapping("n.SegundoDefectoMecánico", "segundoDefectoMecánico")
+                    .columnMapping("n.InitialContactPoint", "initialContactPoint")
+                    .columnMapping("n.AffectedArea", "affectedArea")
+                    .columnMapping("n.ExtendDamage", "extendDamage")
+                    .columnMapping("n.CommercialVehicleUse", "commercialVehicleUse")
+                    .columnMapping("n.VehicleMoving", "vehicleMoving")
+                    .columnMapping("n.AuthorizedDriver", "authorizedDriver")
+                    .columnMapping("n.InspectionUpdate", "inspectionUpdate")
+                    .columnMapping("n.SpecialPermit", "specialPermit")
+                    .columnMapping("n.GrossWeight", "grossWeight")
+                    .columnMapping("n.TotalAxis", "totalAxis")
+                    .columnMapping("n.VehicleConfiguration", "vehicleConfiguration")
+                    .columnMapping("n.HeavyVehicleType", "heavyVehicleType")
+                    .columnMapping("n.HazardousMaterial", "hazardousMaterial")
+                    .columnMapping("n.DiamondIdNumber", "diamondIdNumber")
+                    .columnMapping("n.ThereHazardousMaterial", "thereHazardousMaterial")
+                    .columnMapping("n.VehicleFK", "vehicleFK")
+                    .columnMapping("n.idVehicleExtendInformation", "idVehicleExtendInformation")
+                    .create();
+
+            Query<VehicleExtendInformationModel> query = Ebean.find(VehicleExtendInformationModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("idNewVehicle", newVehicleId);
+            listVehicleExtendInformation = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listVehicleExtendInformation;
+
     }
 }

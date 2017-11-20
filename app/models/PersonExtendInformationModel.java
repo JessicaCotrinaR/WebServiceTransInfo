@@ -2,9 +2,14 @@ package models;
 
 import com.avaje.ebean.*;
 
+import javax.persistence.Entity;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by jessicacotrina on 4/4/17.
  */
+@Entity
 public class PersonExtendInformationModel extends Model {
 
     public int personaFK;
@@ -183,7 +188,77 @@ public class PersonExtendInformationModel extends Model {
         }
         return result;
     }
+    public List<PersonExtendInformationModel> PersonExtendInformationByIdAccident(String personId){
 
+        Transaction t = Ebean.beginTransaction();
+        List<PersonExtendInformationModel> listPersonExtendInformation = new ArrayList<>();
+        try {
+            String sql = "SELECT n.PersonaFK, n.CategoryPerson, n.TypePerson, n.Row, n.Seat, n.OtherLocation," +
+                    "n.RestraintSystem, n.AirbagsActivation, n.Expulsion, n.SpeedRelated, n.Extraction,  n.DriverCirncunstanceBC, n.DistractedDriverBy, n.DistractedBy, n.ConditionCollisionTime, " +
+                    "n.SafetyEquipmentUsed, n.SuspectAlcoholUse, n.TestStatusAl, n.TestTypeAl, n.TestResultAl, n.TestResultTP, n.SuscpectControlledSubstances," +
+                    " n.TestStatusSub, n.TestTypeSub, n.TestResultSub, n.ActionsBeforeCollision, n.InWayToSchool, n.ActionsAtCollisionTime, " +
+                    " n.LocationWhenCollision, n.TransportedByME, n.TransportedTo, n.TransportedBy, n.MedicalEmergenciesNumber, n.AmbulanceCSPNumber, n.idPersonExtendInformation " +
+
+                    "FROM NewPerson b, PersonExtendInformation n " +
+                    "WHERE b.idNewPerson = n.PersonaFK AND " +
+                    "b.idNewPerson =" + personId;
+
+            RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("n.PersonaFK", "personaFK")
+                    .columnMapping("n.CategoryPerson", "categoryPerson")
+                    .columnMapping("n.TypePerson","typePerson")
+                    .columnMapping("n.Row", "row")
+                    .columnMapping("n.Seat", "seat")
+                    .columnMapping("n.OtherLocation", "otherLocation")
+                    .columnMapping("n.RestraintSystem", "restraintSystem")
+                    .columnMapping("n.AirbagsActivation", "airbagsActivation")
+                    .columnMapping("n.Expulsion", "expulsion")
+                    .columnMapping("n.SpeedRelated", "speedRelated")
+                    .columnMapping("n.Extraction", "extraction")
+                    .columnMapping("n.DriverCirncunstanceBC", "driverCirncunstanceBC")
+                    .columnMapping("n.DistractedDriverBy", "distractedDriverBy")
+                    .columnMapping("n.DistractedBy", "distractedBy")
+                    .columnMapping("n.ConditionCollisionTime", "conditionCollisionTime")
+                    .columnMapping("n.SafetyEquipmentUsed", "safetyEquipmentUsed")
+                    .columnMapping("n.SuspectAlcoholUse", "suspectAlcoholUse")
+                    .columnMapping("n.TestStatusAl", "testStatusAl")
+                    .columnMapping("n.TestTypeAl", "testTypeAl")
+                    .columnMapping("n.TestResultAl", "testResultAl")
+                    .columnMapping("n.TestResultTP", "testResultTP")
+                    .columnMapping("n.SuscpectControlledSubstances", "suscpectControlledSubstances")
+                    .columnMapping("n.TestStatusSub", "testStatusSub")
+                    .columnMapping("n.TestTypeSub", "testTypeSub")
+                    .columnMapping("n.TestResultSub", "testResultSub")
+                    .columnMapping("n.ActionsBeforeCollision", "actionsBeforeCollision")
+                    .columnMapping("n.InWayToSchool", "inWayToSchool")
+                    .columnMapping("n.ActionsAtCollisionTime", "actionsAtCollisionTime")
+                    .columnMapping("n.LocationWhenCollision", "locationWhenCollision")
+                    .columnMapping("n.TransportedByME", "transportedByME")
+                    .columnMapping("n.TransportedTo", "transportedTo")
+                    .columnMapping("n.TransportedBy", "transportedBy")
+                     .columnMapping("n.MedicalEmergenciesNumber", "medicalEmergenciesNumber")
+                     .columnMapping("n.AmbulanceCSPNumber", "ambulanceCSPNumber")
+                     .columnMapping("n.idPersonExtendInformation", "idPersonExtendInformation")
+                    .create();
+
+            Query<PersonExtendInformationModel> query = Ebean.find(PersonExtendInformationModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("idNewPerson", personId);
+            listPersonExtendInformation = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listPersonExtendInformation;
+
+    }
 
 
 }

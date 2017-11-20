@@ -95,6 +95,94 @@ create table new_vehicle_model (
   licence_number                varchar(255)
 );
 
+create table person_extend_information_model (
+  persona_fk                    integer,
+  category_person               varchar(255),
+  type_person                   varchar(255),
+  row                           varchar(255),
+  seat                          varchar(255),
+  other_location                varchar(255),
+  restraint_system              varchar(255),
+  airbags_activation            varchar(255),
+  expulsion                     varchar(255),
+  speed_related                 varchar(255),
+  extraction                    varchar(255),
+  distracted_by                 varchar(255),
+  driver_cirncunstance_bc       varchar(255),
+  condition_collision_time      varchar(255),
+  safety_equipment_used         varchar(255),
+  suspect_alcohol_use           varchar(255),
+  test_status_al                varchar(255),
+  test_type_al                  varchar(255),
+  test_result_al                varchar(255),
+  test_result_tp                varchar(255),
+  suscpect_controlled_substances varchar(255),
+  distracted_driver_by          varchar(255),
+  test_status_sub               varchar(255),
+  test_type_sub                 varchar(255),
+  test_result_sub               varchar(255),
+  actions_before_collision      varchar(255),
+  in_way_to_school              varchar(255),
+  actions_at_collision_time     varchar(255),
+  location_when_collision       varchar(255),
+  transported_by_me             varchar(255),
+  transported_to                varchar(255),
+  transported_by                varchar(255),
+  medical_emergencies_number    varchar(255),
+  id_person_extend_information  integer,
+  ambulance_cspnumber           integer
+);
+
+create table vehicle_extend_information_model (
+  vehicle_type                  varchar(255),
+  occupants                     varchar(255),
+  vehicle_motor                 varchar(255),
+  direction_trip_cb             varchar(255),
+  function_special_mvt          varchar(255),
+  motor_emergency_vu            varchar(255),
+  m_ph                          varchar(255),
+  m_phdescription               varchar(255),
+  maneuver_vehicle_motor        varchar(255),
+  description_road              varchar(255),
+  alignment                     varchar(255),
+  slope                         varchar(255),
+  lane_cantidad                 varchar(255),
+  lane_categoria                varchar(255),
+  lane_tipo_carril              varchar(255),
+  type_control_traffic          varchar(255),
+  in_operation_lost             varchar(255),
+  primera_categoria_event       varchar(255),
+  segunda_categoria_event       varchar(255),
+  tercera_categoria_event       varchar(255),
+  cuarta_categoria              varchar(255),
+  primer_event                  varchar(255),
+  segundo_event                 varchar(255),
+  tecer_event                   varchar(255),
+  cuarto_event                  varchar(255),
+  bus_use                       varchar(255),
+  lefth_place                   varchar(255),
+  towed_damage                  varchar(255),
+  primer_defecto_mecánico       varchar(255),
+  segundo_defecto_mecánico      varchar(255),
+  initial_contact_point         varchar(255),
+  affected_area                 varchar(255),
+  extend_damage                 varchar(255),
+  commercial_vehicle_use        varchar(255),
+  vehicle_moving                varchar(255),
+  authorized_driver             varchar(255),
+  inspection_update             varchar(255),
+  special_permit                varchar(255),
+  gross_weight                  varchar(255),
+  total_axis                    varchar(255),
+  vehicle_configuration         varchar(255),
+  heavy_vehicle_type            varchar(255),
+  hazardous_material            varchar(255),
+  diamond_id_number             varchar(255),
+  there_hazardous_material      varchar(255),
+  vehicle_fk                    integer,
+  id_vehicle_extend_information integer
+);
+
 create table list_vehicle_of_person_model (
   plate_number                  varchar(255),
   make                          varchar(255),
@@ -114,6 +202,10 @@ drop table if exists narrativa_model;
 drop table if exists new_person_model;
 
 drop table if exists new_vehicle_model;
+
+drop table if exists person_extend_information_model;
+
+drop table if exists vehicle_extend_information_model;
 
 drop table if exists list_vehicle_of_person_model;
 

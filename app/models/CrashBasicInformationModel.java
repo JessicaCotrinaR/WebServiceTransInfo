@@ -144,41 +144,14 @@ public class CrashBasicInformationModel extends Model {
         }
         return result;
     }
-//        Transaction tx = Ebean.beginTransaction();
-//        boolean success= true;
 
-//        try {
-//            result = update.execute();
-//            String sqlgetId = "SELECT @@IDENTITY as theId";
-//            SqlRow id = Ebean.createSqlQuery(sqlgetId)
-//                    .findUnique();
-//            result = id.getLong("theId");
-//            System.out.println("idCrashBasicInformation: " + result);
-//
-//
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//            result = 0;
-//            success= false;
-//        }
-//        finally {
-//            if(success){
-//                tx.commit();
-//            }
-//            else {
-//                tx.rollback();
-//            }
-//
-//        }
-//        return result;
-//    }
 
     public List<CrashBasicInformationModel> searchByCaseNumber(String caseNumber){
 
         Transaction t = Ebean.beginTransaction();
         List<CrashBasicInformationModel> listCrashBasic = new ArrayList<>();
         try {
-            String sql = "SELECT a.CrashType, a.CaseNumber, a.CrashDate, a.Hour, a.UnitVehiculos, a.UnitAutomovilistas, a.UnitPedestrians, a.UnitInjured, a.UnitFatalaties, a.Longitude, a.Latitude, a.Address, a.CityDescriptionES, a.CountryDescriptionES, a.NearToDescriptionEs, a.Name, a.Distance, a.MeasurementDescriptionES, a.DirectionDescriptionES, a.PropertyDescriptionES, a.LocationDescriptionES, a.ZoneTypeDescriptionES, a.Officerfk " +
+            String sql = "SELECT a.idCrashBasicInformation, a.CrashType, a.CaseNumber, a.CrashDate, a.Hour, a.UnitVehiculos, a.UnitAutomovilistas, a.UnitPedestrians, a.UnitInjured, a.UnitFatalaties, a.Longitude, a.Latitude, a.Address, a.CityDescriptionES, a.CountryDescriptionES, a.NearToDescriptionEs, a.Name, a.Distance, a.MeasurementDescriptionES, a.DirectionDescriptionES, a.PropertyDescriptionES, a.LocationDescriptionES, a.ZoneTypeDescriptionES, a.Officerfk " +
                     "FROM Accident a " +
                     "WHERE a.CaseNumber = :CaseNumber";
 
@@ -208,6 +181,7 @@ public class CrashBasicInformationModel extends Model {
                     .columnMapping("a.LocationDescriptionES", "locationDescriptionES")
                     .columnMapping("a.ZoneTypeDescriptionES", "zoneTypeDescriptionES")
                     .columnMapping("a.Officerfk", "officerfk")
+                    .columnMapping("a.idCrashBasicInformation", "idCrashBasicInformation")
                     .create();
 
             Query<CrashBasicInformationModel> query = Ebean.find(CrashBasicInformationModel.class);

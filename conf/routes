@@ -185,3 +185,5 @@ GET     /CrashConditionsByIdAccident/:idAccident       controllers.CrashConditio
 GET     /NarrativeByIdAccident/:accidentfk       controllers.Narrativa.ListNarrativaByIdAccident(accidentfk:String)
 GET     /NewPersonByIdAccident/:accidenfk       controllers.NewPerson.ListNewPersonByIdAccident(accidenfk:String)
 GET     /NewVehicleByIdAccident/:accidefk       controllers.NewVehicle.ListNewPersonByIdAccident(accidefk:String)
+GET     /ListVehicleExtend/:newVehicleId       controllers.VehicleExtend.listVehicleExtendInformation(newVehicleId:String)
+GET     /ListPersonExtend/:personId       controllers.PersonExtendInformation.ListPersonExtendByIdPerson(personId:String)
