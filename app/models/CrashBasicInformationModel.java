@@ -35,6 +35,7 @@ public class CrashBasicInformationModel extends Model {
     public String propertyDescriptionES;
     public String locationDescriptionES;
     public String zoneTypeDescriptionES;
+    public String status;
     public int officerfk;
     public int idCrashBasicInformation;
 
@@ -42,8 +43,8 @@ public class CrashBasicInformationModel extends Model {
     }
     public long addCrashBasicInformation(CrashBasicInformationModel crashBasicInformationModel) {
         long result;
-        String sql = "INSERT INTO Accident (CrashType, CaseNumber, CrashDate, Hour, UnitVehiculos, UnitAutomovilistas, UnitPedestrians, UnitInjured, UnitFatalaties, Longitude, Latitude, Address, CityDescriptionES, CountryDescriptionES, NearToDescriptionEs, Name, Distance, MeasurementDescriptionES, DirectionDescriptionES, PropertyDescriptionES, LocationDescriptionES, ZoneTypeDescriptionES, Officerfk) " +
-                "VALUES (:CrashType, :CaseNumber, :CrashDate, :Hour, :UnitVehiculos, :UnitAutomovilistas, :UnitPedestrians, :UnitInjured, :UnitFatalaties, :Longitude, :Latitude, :Address, :CityDescriptionES, :CountryDescriptionES, :NearToDescriptionEs, :Name, :Distance, :MeasurementDescriptionES, :DirectionDescriptionES, :PropertyDescriptionES, :LocationDescriptionES, :ZoneTypeDescriptionES, :Officerfk)";
+        String sql = "INSERT INTO Accident (CrashType, CaseNumber, CrashDate, Hour, UnitVehiculos, UnitAutomovilistas, UnitPedestrians, UnitInjured, UnitFatalaties, Longitude, Latitude, Address, CityDescriptionES, CountryDescriptionES, NearToDescriptionEs, Name, Distance, MeasurementDescriptionES, DirectionDescriptionES, PropertyDescriptionES, LocationDescriptionES, ZoneTypeDescriptionES, Officerfk, Status) " +
+                "VALUES (:CrashType, :CaseNumber, :CrashDate, :Hour, :UnitVehiculos, :UnitAutomovilistas, :UnitPedestrians, :UnitInjured, :UnitFatalaties, :Longitude, :Latitude, :Address, :CityDescriptionES, :CountryDescriptionES, :NearToDescriptionEs, :Name, :Distance, :MeasurementDescriptionES, :DirectionDescriptionES, :PropertyDescriptionES, :LocationDescriptionES, :ZoneTypeDescriptionES, :Officerfk, :Status)";
         SqlUpdate insert = Ebean.createSqlUpdate(sql);
         insert.setParameter("CrashType",  crashBasicInformationModel.crashType);
         insert.setParameter("CaseNumber", crashBasicInformationModel.caseNumber);
@@ -68,6 +69,7 @@ public class CrashBasicInformationModel extends Model {
         insert.setParameter("LocationDescriptionES", crashBasicInformationModel.locationDescriptionES);
         insert.setParameter("ZoneTypeDescriptionES", crashBasicInformationModel.zoneTypeDescriptionES);
         insert.setParameter("Officerfk", crashBasicInformationModel.officerfk);
+        insert.setParameter("Status", crashBasicInformationModel.status);
 
         System.out.println(officerfk);
         System.out.println("Update: " + insert.getSql());
@@ -101,7 +103,7 @@ public class CrashBasicInformationModel extends Model {
 
     public long updateCrashBasicInformation(CrashBasicInformationModel crashBasicInformationModel) {
         long result;
-        String sql = "UPDATE Accident SET CrashType = :CrashType, CaseNumber = :CaseNumber, CrashDate = :CrashDate, Hour = :Hour, UnitVehiculos = :UnitVehiculos, UnitAutomovilistas = :UnitAutomovilistas, UnitPedestrians = :UnitPedestrians, UnitInjured = :UnitInjured, UnitFatalaties = :UnitFatalaties, Longitude = :Longitude, Latitude = :Latitude, Address = :Address, CityDescriptionES = :CityDescriptionES, CountryDescriptionES = :CountryDescriptionES, NearToDescriptionEs = :NearToDescriptionEs, Name = :Name, Distance = :Distance, MeasurementDescriptionES = :MeasurementDescriptionES, DirectionDescriptionES = :DirectionDescriptionES, PropertyDescriptionES = :PropertyDescriptionES, LocationDescriptionES = :LocationDescriptionES, ZoneTypeDescriptionES = :ZoneTypeDescriptionES, Officerfk = :Officerfk " +
+        String sql = "UPDATE Accident SET CrashType = :CrashType, CaseNumber = :CaseNumber, CrashDate = :CrashDate, Hour = :Hour, UnitVehiculos = :UnitVehiculos, UnitAutomovilistas = :UnitAutomovilistas, UnitPedestrians = :UnitPedestrians, UnitInjured = :UnitInjured, UnitFatalaties = :UnitFatalaties, Longitude = :Longitude, Latitude = :Latitude, Address = :Address, CityDescriptionES = :CityDescriptionES, CountryDescriptionES = :CountryDescriptionES, NearToDescriptionEs = :NearToDescriptionEs, Name = :Name, Distance = :Distance, MeasurementDescriptionES = :MeasurementDescriptionES, DirectionDescriptionES = :DirectionDescriptionES, PropertyDescriptionES = :PropertyDescriptionES, LocationDescriptionES = :LocationDescriptionES, ZoneTypeDescriptionES = :ZoneTypeDescriptionES, Officerfk = :Officerfk, Status = :Status " +
                 "WHERE idCrashBasicInformation = :idCrashBasicInformation";
         System.out.println(sql);
         SqlUpdate update = Ebean.createSqlUpdate(sql);
@@ -129,6 +131,7 @@ public class CrashBasicInformationModel extends Model {
         update.setParameter("LocationDescriptionES", crashBasicInformationModel.locationDescriptionES);
         update.setParameter("ZoneTypeDescriptionES", crashBasicInformationModel.zoneTypeDescriptionES);
         update.setParameter("Officerfk", crashBasicInformationModel.officerfk);
+        update.setParameter("Status", crashBasicInformationModel.status);
         update.setParameter("idCrashBasicInformation", crashBasicInformationModel.idCrashBasicInformation);
 
 
@@ -151,7 +154,7 @@ public class CrashBasicInformationModel extends Model {
         Transaction t = Ebean.beginTransaction();
         List<CrashBasicInformationModel> listCrashBasic = new ArrayList<>();
         try {
-            String sql = "SELECT a.idCrashBasicInformation, a.CrashType, a.CaseNumber, a.CrashDate, a.Hour, a.UnitVehiculos, a.UnitAutomovilistas, a.UnitPedestrians, a.UnitInjured, a.UnitFatalaties, a.Longitude, a.Latitude, a.Address, a.CityDescriptionES, a.CountryDescriptionES, a.NearToDescriptionEs, a.Name, a.Distance, a.MeasurementDescriptionES, a.DirectionDescriptionES, a.PropertyDescriptionES, a.LocationDescriptionES, a.ZoneTypeDescriptionES, a.Officerfk " +
+            String sql = "SELECT a.idCrashBasicInformation, a.CrashType, a.CaseNumber, a.CrashDate, a.Hour, a.UnitVehiculos, a.UnitAutomovilistas, a.UnitPedestrians, a.UnitInjured, a.UnitFatalaties, a.Longitude, a.Latitude, a.Address, a.CityDescriptionES, a.CountryDescriptionES, a.NearToDescriptionEs, a.Name, a.Distance, a.MeasurementDescriptionES, a.DirectionDescriptionES, a.PropertyDescriptionES, a.LocationDescriptionES, a.ZoneTypeDescriptionES, a.Officerfk, a.Status " +
                     "FROM Accident a " +
                     "WHERE a.CaseNumber = :CaseNumber";
 
@@ -182,6 +185,7 @@ public class CrashBasicInformationModel extends Model {
                     .columnMapping("a.ZoneTypeDescriptionES", "zoneTypeDescriptionES")
                     .columnMapping("a.Officerfk", "officerfk")
                     .columnMapping("a.idCrashBasicInformation", "idCrashBasicInformation")
+                    .columnMapping("a.Status", "status")
                     .create();
 
             Query<CrashBasicInformationModel> query = Ebean.find(CrashBasicInformationModel.class);
@@ -204,5 +208,179 @@ public class CrashBasicInformationModel extends Model {
     }
 
 
+    public List<CrashBasicInformationModel> searchByStatus0(String statuss){
+
+        Transaction t = Ebean.beginTransaction();
+        List<CrashBasicInformationModel> listCrashBasic = new ArrayList<>();
+        try {
+            String sql = "SELECT a.idCrashBasicInformation, a.CrashType, a.CaseNumber, a.CrashDate, a.Hour, a.UnitVehiculos, a.UnitAutomovilistas, a.UnitPedestrians, a.UnitInjured, a.UnitFatalaties, a.Longitude, a.Latitude, a.Address, a.CityDescriptionES, a.CountryDescriptionES, a.NearToDescriptionEs, a.Name, a.Distance, a.MeasurementDescriptionES, a.DirectionDescriptionES, a.PropertyDescriptionES, a.LocationDescriptionES, a.ZoneTypeDescriptionES, a.Officerfk, a.Status " +
+                    "FROM Accident a " +
+                    "WHERE a.Status = :Status";
+
+            RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("a.CrashType", "crashType")
+                    .columnMapping("a.CaseNumber", "caseNumber")
+                    .columnMapping("a.CrashDate", "crashDate")
+                    .columnMapping("a.Hour", "hour")
+                    .columnMapping("a.UnitVehiculos", "unitVehiculos")
+                    .columnMapping("a.UnitAutomovilistas", "unitAutomovilistas")
+                    .columnMapping("a.UnitPedestrians", "unitPedestrians")
+                    .columnMapping("a.UnitInjured", "unitInjured")
+                    .columnMapping("a.UnitFatalaties", "unitFatalaties")
+                    .columnMapping("a.Longitude", "longitude")
+                    .columnMapping("a.Latitude", "latitude")
+                    .columnMapping("a.Address", "address")
+                    .columnMapping("a.CityDescriptionES", "cityDescriptionES")
+                    .columnMapping("a.CountryDescriptionES", "countryDescriptionES")
+                    .columnMapping("a.NearToDescriptionEs", "nearToDescriptionEs")
+                    .columnMapping("a.Name", "name")
+                    .columnMapping("a.Distance", "distance")
+                    .columnMapping("a.MeasurementDescriptionES", "measurementDescriptionES")
+                    .columnMapping("a.DirectionDescriptionES", "directionDescriptionES")
+                    .columnMapping("a.DirectionDescriptionES", "directionDescriptionES")
+                    .columnMapping("a.PropertyDescriptionES", "propertyDescriptionES")
+                    .columnMapping("a.PropertyDescriptionES", "propertyDescriptionES")
+                    .columnMapping("a.LocationDescriptionES", "locationDescriptionES")
+                    .columnMapping("a.ZoneTypeDescriptionES", "zoneTypeDescriptionES")
+                    .columnMapping("a.Officerfk", "officerfk")
+                    .columnMapping("a.idCrashBasicInformation", "idCrashBasicInformation")
+                    .columnMapping("a.Status", "status")
+                    .create();
+
+            Query<CrashBasicInformationModel> query = Ebean.find(CrashBasicInformationModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("Status", statuss);
+            listCrashBasic = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listCrashBasic;
+
+    }
+
+    public List<CrashBasicInformationModel> searchByStatus1(String statuss){
+
+        Transaction t = Ebean.beginTransaction();
+        List<CrashBasicInformationModel> listCrashBasic = new ArrayList<>();
+        try {
+            String sql = "SELECT a.idCrashBasicInformation, a.CrashType, a.CaseNumber, a.CrashDate, a.Hour, a.UnitVehiculos, a.UnitAutomovilistas, a.UnitPedestrians, a.UnitInjured, a.UnitFatalaties, a.Longitude, a.Latitude, a.Address, a.CityDescriptionES, a.CountryDescriptionES, a.NearToDescriptionEs, a.Name, a.Distance, a.MeasurementDescriptionES, a.DirectionDescriptionES, a.PropertyDescriptionES, a.LocationDescriptionES, a.ZoneTypeDescriptionES, a.Officerfk, a.Status " +
+                    "FROM Accident a " +
+                    "WHERE a.Status = :Status";
+
+            RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("a.CrashType", "crashType")
+                    .columnMapping("a.CaseNumber", "caseNumber")
+                    .columnMapping("a.CrashDate", "crashDate")
+                    .columnMapping("a.Hour", "hour")
+                    .columnMapping("a.UnitVehiculos", "unitVehiculos")
+                    .columnMapping("a.UnitAutomovilistas", "unitAutomovilistas")
+                    .columnMapping("a.UnitPedestrians", "unitPedestrians")
+                    .columnMapping("a.UnitInjured", "unitInjured")
+                    .columnMapping("a.UnitFatalaties", "unitFatalaties")
+                    .columnMapping("a.Longitude", "longitude")
+                    .columnMapping("a.Latitude", "latitude")
+                    .columnMapping("a.Address", "address")
+                    .columnMapping("a.CityDescriptionES", "cityDescriptionES")
+                    .columnMapping("a.CountryDescriptionES", "countryDescriptionES")
+                    .columnMapping("a.NearToDescriptionEs", "nearToDescriptionEs")
+                    .columnMapping("a.Name", "name")
+                    .columnMapping("a.Distance", "distance")
+                    .columnMapping("a.MeasurementDescriptionES", "measurementDescriptionES")
+                    .columnMapping("a.DirectionDescriptionES", "directionDescriptionES")
+                    .columnMapping("a.DirectionDescriptionES", "directionDescriptionES")
+                    .columnMapping("a.PropertyDescriptionES", "propertyDescriptionES")
+                    .columnMapping("a.PropertyDescriptionES", "propertyDescriptionES")
+                    .columnMapping("a.LocationDescriptionES", "locationDescriptionES")
+                    .columnMapping("a.ZoneTypeDescriptionES", "zoneTypeDescriptionES")
+                    .columnMapping("a.Officerfk", "officerfk")
+                    .columnMapping("a.idCrashBasicInformation", "idCrashBasicInformation")
+                    .columnMapping("a.Status", "status")
+                    .create();
+
+            Query<CrashBasicInformationModel> query = Ebean.find(CrashBasicInformationModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("Status", statuss);
+            listCrashBasic = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listCrashBasic;
+
+    }
+
+
+    public List<CrashBasicInformationModel> searchByStatus2(String statuss){
+
+        Transaction t = Ebean.beginTransaction();
+        List<CrashBasicInformationModel> listCrashBasic = new ArrayList<>();
+        try {
+            String sql = "SELECT a.idCrashBasicInformation, a.CrashType, a.CaseNumber, a.CrashDate, a.Hour, a.UnitVehiculos, a.UnitAutomovilistas, a.UnitPedestrians, a.UnitInjured, a.UnitFatalaties, a.Longitude, a.Latitude, a.Address, a.CityDescriptionES, a.CountryDescriptionES, a.NearToDescriptionEs, a.Name, a.Distance, a.MeasurementDescriptionES, a.DirectionDescriptionES, a.PropertyDescriptionES, a.LocationDescriptionES, a.ZoneTypeDescriptionES, a.Officerfk, a.Status " +
+                    "FROM Accident a " +
+                    "WHERE a.Status = :Status";
+
+            RawSql rawSql = RawSqlBuilder.parse(sql)
+                    .columnMapping("a.CrashType", "crashType")
+                    .columnMapping("a.CaseNumber", "caseNumber")
+                    .columnMapping("a.CrashDate", "crashDate")
+                    .columnMapping("a.Hour", "hour")
+                    .columnMapping("a.UnitVehiculos", "unitVehiculos")
+                    .columnMapping("a.UnitAutomovilistas", "unitAutomovilistas")
+                    .columnMapping("a.UnitPedestrians", "unitPedestrians")
+                    .columnMapping("a.UnitInjured", "unitInjured")
+                    .columnMapping("a.UnitFatalaties", "unitFatalaties")
+                    .columnMapping("a.Longitude", "longitude")
+                    .columnMapping("a.Latitude", "latitude")
+                    .columnMapping("a.Address", "address")
+                    .columnMapping("a.CityDescriptionES", "cityDescriptionES")
+                    .columnMapping("a.CountryDescriptionES", "countryDescriptionES")
+                    .columnMapping("a.NearToDescriptionEs", "nearToDescriptionEs")
+                    .columnMapping("a.Name", "name")
+                    .columnMapping("a.Distance", "distance")
+                    .columnMapping("a.MeasurementDescriptionES", "measurementDescriptionES")
+                    .columnMapping("a.DirectionDescriptionES", "directionDescriptionES")
+                    .columnMapping("a.DirectionDescriptionES", "directionDescriptionES")
+                    .columnMapping("a.PropertyDescriptionES", "propertyDescriptionES")
+                    .columnMapping("a.PropertyDescriptionES", "propertyDescriptionES")
+                    .columnMapping("a.LocationDescriptionES", "locationDescriptionES")
+                    .columnMapping("a.ZoneTypeDescriptionES", "zoneTypeDescriptionES")
+                    .columnMapping("a.Officerfk", "officerfk")
+                    .columnMapping("a.idCrashBasicInformation", "idCrashBasicInformation")
+                    .columnMapping("a.Status", "status")
+                    .create();
+
+            Query<CrashBasicInformationModel> query = Ebean.find(CrashBasicInformationModel.class);
+            query.setRawSql(rawSql)
+                    .setParameter("Status", statuss);
+            listCrashBasic = query.findList();
+            t.commit();
+
+
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+
+        }finally {
+            t.end();
+        }
+
+        return listCrashBasic;
+
+    }
 
 }

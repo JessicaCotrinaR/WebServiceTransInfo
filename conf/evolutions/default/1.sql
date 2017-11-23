@@ -26,6 +26,7 @@ create table crash_basic_information_model (
   property_description_es       varchar(255),
   location_description_es       varchar(255),
   zone_type_description_es      varchar(255),
+  status                        varchar(255),
   officerfk                     integer,
   id_crash_basic_information    integer
 );

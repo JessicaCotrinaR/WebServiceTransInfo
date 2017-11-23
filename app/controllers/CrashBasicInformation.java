@@ -91,7 +91,56 @@ public class CrashBasicInformation extends Controller {
         }
     }
 
+    public Result searchStatus0(String status){
 
+        CrashBasicInformationModel p = new CrashBasicInformationModel();
+        List<CrashBasicInformationModel> reportC = p.searchByStatus0(status);
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        if(reportC != null) {
+            msg.set("ListByStatus0", toJson(reportC));
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("error", "There are no list report");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
+    public Result searchStatus1(String status){
+
+        CrashBasicInformationModel p = new CrashBasicInformationModel();
+        List<CrashBasicInformationModel> reportC = p.searchByStatus1(status);
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        if(reportC != null) {
+            msg.set("ReportList", toJson(reportC));
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("error", "There are no list report");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
+
+    public Result searchStatus2(String status){
+
+        CrashBasicInformationModel p = new CrashBasicInformationModel();
+        List<CrashBasicInformationModel> reportC = p.searchByStatus2(status);
+        ObjectNode wrapper = Json.newObject();
+        ObjectNode msg = Json.newObject();
+        if(reportC != null) {
+            msg.set("ReportList", toJson(reportC));
+            wrapper.set("success", msg);
+            return ok(wrapper);
+        }else{
+            msg.put("error", "There are no list report");
+            wrapper.set("error", msg);
+            return badRequest(wrapper);
+        }
+    }
 
 }
 
