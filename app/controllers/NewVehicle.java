@@ -47,7 +47,7 @@ public class NewVehicle extends Controller {
     }
 
 
-    public Result listVehicleByPlateNumber(int para){
+    public Result listVehicleByPlateNumber(String para){
         String p = String.valueOf(para);
         NewVehicleModel v = new NewVehicleModel();
         List<NewVehicleModel> vehiclesC = v.searchByPlateVehicle(p);
