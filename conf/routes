@@ -143,7 +143,7 @@ POST    /AffectAreaSelection            controllers.AffectAreaSelection.insertAf
 POST    /CrashConditions                controllers.CrashConditions.insertCrashConditions()
 
 POST    /NewVehicle                     controllers.NewVehicle.insertNewVehicle()
-GET     /ListVehicleByPlateNumber/:para        controllers.NewVehicle.listVehicleByPlateNumber(para: Integer)
+GET     /ListVehicleByPlateNumber/:para        controllers.NewVehicle.listVehicleByPlateNumber(para: String)
 GET     /ListPersonByLicencieNumber/:para      controllers.NewPerson.listPersonByLicencieNumber(para:Integer)
 GET     /listVehicleOfPerson/:para      controllers.listVehicleOfPerson.listVehicleOfPerson(para:Integer)
 GET     /ListReport/:para               controllers.ListReport.listReportByAccidentDate(para:String)
