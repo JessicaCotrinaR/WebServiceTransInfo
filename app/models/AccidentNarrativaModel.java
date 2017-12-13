@@ -52,13 +52,3 @@ public class AccidentNarrativaModel extends Model {
 //        insert.setParameter("AccidenteFK",  accidentNarrativaModel.accidenteFK);
 //        insert.setParameter("NarrativaFK", accidentNarrativaModel.narrativaFK);
 //
-//        System.out.println("Update: " + insert.getSql());
-//        try {
-//            result = insert.execute();
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//            result = 0;
-//        }
-//        return result;
-//    }
-//
