@@ -38,7 +38,7 @@ public class NewVehicleModel extends Model {
 
     public long addNewVehicleModel(NewVehicleModel newVehicleModel) {
 
-        long result;
+        int result;
         String sql = "INSERT INTO NewVehicle (PlateNumber, VehicleJurisdiction, State, Vin, Year, Make, modelos, RegistrationNumber, InsuranceCompany, PurchaseDate, ExpirationDate, idPersonaFK ) " +
                 "VALUES (:PlateNumber, :VehicleJurisdiction, :State, :Vin, :Year, :Make, :modelos, :RegistrationNumber, :InsuranceCompany, :PurchaseDate, :ExpirationDate, :idPersonaFK)";
         SqlUpdate insert = Ebean.createSqlUpdate(sql);
@@ -64,7 +64,7 @@ public class NewVehicleModel extends Model {
             String sqlgetId = "SELECT @@IDENTITY as theId";
             SqlRow id = Ebean.createSqlQuery(sqlgetId)
                     .findUnique();
-            result = id.getLong("theId");
+            result = id.getInteger("theId");
             System.out.println("Resulting Id: " + result);
 
 

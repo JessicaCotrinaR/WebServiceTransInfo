@@ -28,7 +28,7 @@ public class NewVehicle extends Controller {
             newVehicleModel = formFactory.form(NewVehicleModel.class).bindFromRequest().get();
             ObjectNode result = Json.newObject();
             ObjectNode wrapper = Json.newObject();
-            long operation = newVehicleModel.addNewVehicleModel(newVehicleModel);
+            int operation = (int) newVehicleModel.addNewVehicleModel(newVehicleModel);
             if(operation > 0){
                 result.put("message", "Agregado con éxito");
                 result.put("NewVehicleId", operation);
